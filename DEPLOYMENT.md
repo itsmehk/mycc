@@ -58,19 +58,57 @@
 2. **Build Settings** (Auto-detected from netlify.toml)
    - Base directory: `frontend`
    - Build command: `npm run build`
-   - Publish directory: `frontend/.next`
+   - Publish directory: `.next`
+   - **IMPORTANT**: Enable "Next.js Runtime" plugin (Netlify will prompt)
 
 3. **Environment Variables**
    Add these in Netlify Dashboard → Site settings → Environment variables:
    ```
    NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+   NODE_VERSION=18
    ```
 
-4. **Deploy**
+4. **Enable Essential Next.js Plugin**
+   - Go to Site settings → Build & deploy → Build plugins
+   - Click "Add plugin"
+   - Search for "@netlify/plugin-nextjs"
+   - Click "Install"
+
+5. **Deploy**
    - Click "Deploy site"
-   - Netlify will build from the `frontend` directory
+   - Netlify will build from the `frontend` directory with Next.js support
 
 ### Troubleshooting Netlify
+
+**"Page not found" error on Netlify?**
+This is the most common issue with Next.js on Netlify. Fix it:
+
+1. **Install Essential Next.js Plugin**
+   - Go to: Site settings → Build & deploy → Build plugins
+   - Click "Add plugin"
+   - Search: "@netlify/plugin-nextjs"
+   - Install it
+   - Redeploy
+
+2. **Verify Build Settings**
+   - Base directory: `frontend`
+   - Build command: `npm run build`
+   - Publish directory: `.next` (NOT `frontend/.next`)
+   - Save and redeploy
+
+3. **Check Build Logs**
+   - Go to Deploys tab
+   - Click latest deploy
+   - Check for errors in build log
+   - Look for "Next.js Runtime" plugin in logs
+
+4. **Clear Everything and Redeploy**
+   ```bash
+   # In Netlify Dashboard:
+   # 1. Deploys → Trigger deploy → Clear cache and deploy site
+   # 2. Wait for build to complete
+   # 3. Test the URL
+   ```
 
 **Changes not showing?**
 1. Go to Netlify Dashboard → Deploys
@@ -79,8 +117,9 @@
 
 **Build failing?**
 - Check deploy logs in Netlify Dashboard
-- Verify Node version in `frontend/.nvmrc` (create if needed: `echo "18" > frontend/.nvmrc`)
-- Check build command in netlify.toml
+- Verify Node version is 18+ (set NODE_VERSION=18 in environment variables)
+- Ensure @netlify/plugin-nextjs is installed
+- Check build command in netlify.toml matches: `npm run build`
 
 ---
 

@@ -6,7 +6,5 @@
 [build.environment]
   NEXT_PUBLIC_API_BASE_URL = "http://localhost:8000"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
