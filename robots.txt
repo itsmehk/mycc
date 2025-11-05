@@ -1,0 +1,19 @@
+# robots.txt for CardMatch Pro
+
+User-agent: *
+Allow: /
+
+# Disallow admin or private areas (if any in future)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Sitemap location
+Sitemap: https://cardmatch.pro/sitemap.xml
+
+# Crawl delay (optional, adjust based on server capacity)
+Crawl-delay: 1
+
+# Allow indexing of all content
+Allow: /css/
+Allow: /js/
+Allow: /images/

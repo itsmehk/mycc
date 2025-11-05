@@ -1,0 +1,21 @@
+<svg width="280" height="180" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Card Background -->
+  <rect width="280" height="180" rx="16" fill="url(#gradient)"/>
+
+  <!-- Gradient -->
+  <defs>
+    <linearGradient id="gradient" x1="0" y1="0" x2="280" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Card Chip -->
+  <rect x="24" y="60" width="48" height="38" rx="6" fill="#FFD700" opacity="0.8"/>
+
+  <!-- Card Details -->
+  <text x="24" y="130" font-family="monospace" font-size="16" font-weight="bold" fill="white" opacity="0.9">•••• •••• •••• ••••</text>
+
+  <!-- Bank Name -->
+  <text x="24" y="155" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="white" opacity="0.8">CREDIT CARD</text>
+</svg>
