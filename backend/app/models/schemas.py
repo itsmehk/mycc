@@ -62,11 +62,23 @@ class CreditCard(BaseModel):
     partnerId: str
     applyUrl: str
 
+class RewardRange(BaseModel):
+    min: int
+    max: int
+
+class SpendRange(BaseModel):
+    monthlyMin: int
+    monthlyMax: int
+    breakEven: Optional[int] = None
+
 class CardRecommendation(CreditCard):
     matchScore: float
     eligibility: str
     matchCriteria: List[str]
     breakEvenMonthlySpend: Optional[int] = None
+    estimatedValueRange: Optional[RewardRange] = None
+    monthlySpendRange: Optional[SpendRange] = None
+    personalizedEstimate: Optional[int] = None  # Based on user's actual spend
 
 class RecommendationRequest(BaseModel):
     userData: UserData

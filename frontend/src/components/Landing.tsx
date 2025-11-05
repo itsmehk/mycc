@@ -9,8 +9,9 @@ interface LandingProps {
 
 export default function Landing({ onStartQuiz }: LandingProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary-50 to-gray-50">
-      <div className="max-w-7xl mx-auto px-6 py-20">
+    <>
+      <div className="min-h-screen bg-gradient-to-b from-primary-50 to-gray-50">
+        <div className="max-w-7xl mx-auto px-6 py-20">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
           <div className="space-y-8 animate-fade-in">
@@ -82,5 +83,17 @@ export default function Landing({ onStartQuiz }: LandingProps) {
         </div>
       </div>
     </div>
+
+      {/* Sticky CTA for mobile */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/95 backdrop-blur-sm border-t border-gray-200 md:hidden z-50 shadow-lg">
+        <button
+          onClick={onStartQuiz}
+          className="btn-primary w-full inline-flex items-center justify-center gap-3 text-base shadow-xl"
+        >
+          Start My Card Match
+          <i className="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </>
   );
 }

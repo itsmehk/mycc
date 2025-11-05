@@ -17,32 +17,85 @@ export default function CardModal({ card, onClose }: CardModalProps) {
     };
   }, []);
 
+  // Generate recommendation reason
+  const getRecommendationReason = () => {
+    const reasons = [];
+    if (card.matchScore >= 80) {
+      reasons.push('This card is a perfect match for your spending profile');
+    } else if (card.matchScore >= 60) {
+      reasons.push('This card aligns well with your preferences');
+    } else {
+      reasons.push('This card offers good value for your needs');
+    }
+
+    if (card.eligibility === 'high') {
+      reasons.push('you have excellent eligibility');
+    } else if (card.eligibility === 'medium') {
+      reasons.push('you meet the key requirements');
+    }
+
+    if (card.breakEvenMonthlySpend && card.monthlySpendRange) {
+      reasons.push(`your spending pattern makes it worthwhile (break-even at ${formatCurrency(card.breakEvenMonthlySpend)}/month)`);
+    }
+
+    return reasons.join(', ') + '.';
+  };
+
   return (
     <div
-      className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[9999] flex items-center justify-center p-6 animate-fade-in"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] animate-fade-in"
       onClick={onClose}
     >
+      {/* Right-side drawer */}
       <div
-        className="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto animate-slide-up"
+        className="fixed right-0 top-0 bottom-0 bg-white w-full md:w-[600px] lg:w-[700px] overflow-y-auto shadow-2xl animate-slide-in-right"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-primary-800 to-primary-500 text-white p-8 rounded-t-3xl relative">
+        <div className="bg-gradient-to-r from-primary-800 to-primary-500 text-white p-6 sticky top-0 z-10">
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all"
+            className="absolute top-4 right-4 w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all"
           >
             <i className="fas fa-times text-xl"></i>
           </button>
-          <h2 className="text-3xl font-extrabold mb-2">{card.name}</h2>
-          <p className="text-lg opacity-95">{card.bank}</p>
+          <h2 className="text-2xl font-extrabold mb-1">{card.name}</h2>
+          <p className="text-base opacity-95">{card.bank}</p>
+          <div className="mt-3 inline-flex items-center gap-2 bg-white/20 px-3 py-1.5 rounded-full text-sm">
+            <i className="fas fa-star"></i>
+            <span>{Math.round(card.matchScore)}% Match</span>
+          </div>
         </div>
 
         {/* Body */}
-        <div className="p-8 space-y-8">
+        <div className="p-6 space-y-6">
+          {/* Why We Recommend */}
+          <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4">
+            <h3 className="text-base font-bold text-blue-900 mb-2 flex items-center gap-2">
+              <i className="fas fa-lightbulb"></i>
+              Why We Recommend This Card
+            </h3>
+            <p className="text-sm text-blue-800 leading-relaxed">
+              {getRecommendationReason()}
+            </p>
+          </div>
+
+          {/* Match Criteria */}
+          <div>
+            <h3 className="text-base font-bold text-gray-900 mb-3">Key Matches</h3>
+            <div className="flex flex-wrap gap-2">
+              {card.matchCriteria.map((criterion, idx) => (
+                <span key={idx} className="badge bg-primary-50 text-primary-800 border border-primary-200">
+                  <i className="fas fa-check text-xs"></i>
+                  {criterion}
+                </span>
+              ))}
+            </div>
+          </div>
+
           {/* Detailed Perks */}
           <div>
-            <h3 className="text-xl font-bold text-primary-800 mb-4 flex items-center gap-2">
+            <h3 className="text-lg font-bold text-primary-800 mb-4 flex items-center gap-2">
               <i className="fas fa-star"></i>
               Detailed Benefits & Perks
             </h3>
