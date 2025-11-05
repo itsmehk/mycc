@@ -3,75 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CardMatch Pro - Smart Card Recommendations</title>
+    <title>MyCC - Find Your Perfect Credit Card Match</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-blue: #1E40AF;
+            --secondary-blue: #3B82F6;
+            --light-blue: #EFF6FF;
+            --section-padding: 100px;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: #f8fafc;
             color: #1e293b;
         }
+
         .hidden {
             display: none !important;
         }
+
+        /* Keyframe Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
         
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            padding: 20px 24px;
+        /* Navigation Bar */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            padding: 20px 0;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
-        .header-content {
-            max-width: 1200px;
+
+        .navbar-content {
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 0 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         .logo {
             display: flex;
             align-items: center;
             gap: 12px;
+            cursor: pointer;
+            text-decoration: none;
         }
+
         .logo-icon {
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
             background: white;
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #1e40af;
+            color: var(--primary-blue);
             font-weight: 900;
-            font-size: 22px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
+
         .logo-text {
-            font-size: 22px;
-            font-weight: 700;
+            font-size: 28px;
+            font-weight: 800;
             color: white;
-            letter-spacing: -0.5px;
+            letter-spacing: -1px;
         }
-        .header-badge {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+
+        .nav-links {
             display: flex;
+            gap: 40px;
             align-items: center;
-            gap: 6px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: white;
+            color: var(--primary-blue);
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
         }
         
         /* Progress Tracker */
@@ -115,6 +211,37 @@
             font-size: 12px;
         }
         
+        /* Section Base Styles */
+        section {
+            padding: var(--section-padding) 0;
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-header h2 {
+            font-size: 48px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .section-header p {
+            font-size: 20px;
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
         /* Landing Page - Split Screen Hero */
         .landing {
             min-height: 100vh;
@@ -209,6 +336,7 @@
             border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            animation: float 6s ease-in-out infinite;
         }
         .hero-image img {
             width: 100%;
@@ -216,11 +344,67 @@
             display: block;
             object-fit: cover;
         }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            padding: 20px 48px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
+        }
+
+        .trust-badges {
+            display: flex;
+            gap: 24px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .trust-badge i {
+            color: var(--secondary-blue);
+            font-size: 20px;
+        }
+
+        .trust-badge span {
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 14px;
+        }
         .stats {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 32px;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 60px auto 0;
             padding: 0 24px;
         }
@@ -231,6 +415,11 @@
             border-radius: 20px;
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
             border: 1px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+        .stat:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
         }
         .stat-icon {
             font-size: 40px;
@@ -250,6 +439,565 @@
             color: #64748b;
             font-weight: 600;
             font-size: 15px;
+        }
+
+        /* How It Works Section */
+        #how-it-works {
+            background: white;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .step-card {
+            position: relative;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            padding: 48px 32px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid #e2e8f0;
+        }
+
+        .step-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--secondary-blue);
+        }
+
+        .step-badge {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+
+        .step-icon {
+            font-size: 56px;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .step-card h3 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 16px;
+        }
+
+        .step-card p {
+            color: #64748b;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Features Section */
+        #features {
+            background: var(--light-blue);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            border-color: var(--secondary-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 36px;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* Testimonials Section */
+        #testimonials {
+            background: white;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--secondary-blue);
+        }
+
+        .testimonial-stars {
+            color: #fbbf24;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-text {
+            color: #475569;
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .author-avatar {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .author-info h4 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .author-info p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* Blog Section */
+        #blog {
+            background: var(--light-blue);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 2px solid #e2e8f0;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .blog-header {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            color: white;
+            position: relative;
+        }
+
+        .blog-category {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: white;
+            color: var(--primary-blue);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .blog-content {
+            padding: 32px;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .blog-card h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .blog-link {
+            color: var(--secondary-blue);
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .blog-link:hover {
+            gap: 12px;
+        }
+
+        /* About Section */
+        #about {
+            background: white;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto 64px;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 18px;
+            color: #475569;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .value-card {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--secondary-blue);
+        }
+
+        .value-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .value-card h3 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+
+        .value-card p {
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* FAQ Section */
+        #faq {
+            background: var(--light-blue);
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+
+        .faq-item.active {
+            border-color: var(--secondary-blue);
+        }
+
+        .faq-question {
+            padding: 24px 32px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+            transition: all 0.3s;
+        }
+
+        .faq-question:hover {
+            background: var(--light-blue);
+        }
+
+        .faq-icon {
+            font-size: 20px;
+            color: var(--secondary-blue);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-answer-content {
+            padding: 0 32px 24px;
+            color: #64748b;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: white;
+        }
+
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            padding: 48px;
+            border-radius: 24px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .form-field {
+            margin-bottom: 24px;
+        }
+
+        .form-field label {
+            display: block;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-field input:focus,
+        .form-field textarea:focus {
+            outline: none;
+            border-color: var(--secondary-blue);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-field textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #0f172a;
+            color: white;
+            padding: 80px 0 32px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand h3 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-link {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: var(--secondary-blue);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h4 {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 4px;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px 24px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #94a3b8;
         }
         
         /* Question Pages */
@@ -1025,7 +1773,13 @@
             background: #eff6ff;
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
             .hero {
                 grid-template-columns: 1fr;
                 gap: 40px;
@@ -1036,26 +1790,46 @@
             }
             .hero-content h1 { font-size: 42px; }
             .stats { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .blog-grid { grid-template-columns: 1fr; }
+            .values-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; }
             .cards-grid { grid-template-columns: 1fr; }
             .multi-grid { grid-template-columns: 1fr; }
             .question-card { padding: 40px 28px; }
             .card-mockup { width: 280px; height: 176px; }
             .overview-grid { grid-template-columns: 1fr; }
+            .section-header h2 { font-size: 36px; }
+            .hero-cta { flex-direction: column; align-items: stretch; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-icon">C</div>
-                <div class="logo-text">CardMatch Pro</div>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="#home" class="logo">
+                <div class="logo-icon">M</div>
+                <div class="logo-text">MyCC</div>
+            </a>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#features">Features</a>
+                <a href="#blog">Blog</a>
+                <a href="#about">About</a>
+                <a href="#faq">FAQs</a>
+                <a href="#contact">Contact</a>
             </div>
-            <div class="header-badge">
-                <i class="fas fa-shield-halved"></i> Secure & Private
-            </div>
+            <button class="cta-button" onclick="startQuiz()">Get Started</button>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-    </div>
+    </nav>
 
     <div class="progress-tracker" id="progressTracker">
         <div class="tracker-content" id="trackerContent">
@@ -1063,49 +1837,58 @@
         </div>
     </div>
 
-    <div id="landing" class="landing">
+    <!-- Home Section -->
+    <section id="home" class="landing">
+        <!-- Hero Section -->
         <div class="hero">
             <div class="hero-content">
                 <div class="badge">
                     <i class="fas fa-sparkles"></i>
-                    <span>AI-Powered • Community-Verified • 100% Free</span>
+                    <span>AI-Powered • 100% Free • No Credit Score Impact</span>
                 </div>
                 <h1>
                     Find Your Perfect<br>
                     <span class="gradient-text">Credit Card Match</span>
                 </h1>
                 <p>
-                    Get personalized recommendations based on your spending habits, income, and financial goals. 
-                    Powered by real community insights from TechnoFino & Reddit.
+                    Get AI-powered personalized credit card recommendations in just 3 minutes. Match with cards that truly fit your spending habits, income, and financial goals.
                 </p>
-                <button class="btn-primary" onclick="startQuiz()">
-                    Start My Card Match
-                    <i class="fas fa-arrow-right"></i>
-                </button>
-                <div class="hero-note">
-                    <div class="hero-note-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>3-minute smart match</span>
+                <div class="hero-cta">
+                    <button class="btn-primary" onclick="startQuiz()">
+                        Start My Card Match
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="btn-secondary" onclick="document.getElementById('how-it-works').scrollIntoView({behavior: 'smooth'})">
+                        <i class="fas fa-play-circle"></i>
+                        How It Works
+                    </button>
+                </div>
+                <div class="trust-badges">
+                    <div class="trust-badge">
+                        <i class="fas fa-clock"></i>
+                        <span>3-minute match</span>
                     </div>
-                    <div class="hero-note-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Eligibility transparency</span>
+                    <div class="trust-badge">
+                        <i class="fas fa-shield-check"></i>
+                        <span>No credit score impact</span>
                     </div>
-                    <div class="hero-note-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>No spam, ever</span>
+                    <div class="trust-badge">
+                        <i class="fas fa-infinity"></i>
+                        <span>100% free</span>
                     </div>
                 </div>
             </div>
             <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80" alt="Professional with credit card" />
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80" alt="Professional managing credit cards" />
             </div>
         </div>
+
+        <!-- Stats Section -->
         <div class="stats">
             <div class="stat">
-                <i class="fas fa-bolt stat-icon"></i>
+                <i class="fas fa-clock stat-icon"></i>
                 <div class="stat-value">3 min</div>
-                <div class="stat-label">Smart Match Time</div>
+                <div class="stat-label">Average Match Time</div>
             </div>
             <div class="stat">
                 <i class="fas fa-credit-card stat-icon"></i>
@@ -1113,12 +1896,377 @@
                 <div class="stat-label">Verified Cards</div>
             </div>
             <div class="stat">
-                <i class="fas fa-circle-check stat-icon"></i>
+                <i class="fas fa-users stat-icon"></i>
+                <div class="stat-value">50K+</div>
+                <div class="stat-label">Happy Users</div>
+            </div>
+            <div class="stat">
+                <i class="fas fa-chart-line stat-icon"></i>
                 <div class="stat-value">95%</div>
                 <div class="stat-label">Approval Accuracy</div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>How <span class="gradient-text">MyCC</span> Works</h2>
+                <p>Get matched with the perfect credit card in three simple steps</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-badge">1</div>
+                    <i class="fas fa-clipboard-question step-icon"></i>
+                    <h3>Answer Quick Questions</h3>
+                    <p>Tell us about your spending habits, income, and financial goals. Takes less than 3 minutes.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">2</div>
+                    <i class="fas fa-brain step-icon"></i>
+                    <h3>Get AI-Powered Matches</h3>
+                    <p>Our algorithm analyzes your profile and matches you with the best credit cards for your needs.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">3</div>
+                    <i class="fas fa-rocket step-icon"></i>
+                    <h3>Apply with Confidence</h3>
+                    <p>Review your matches with transparent eligibility insights and apply to the card that's right for you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Why Choose <span class="gradient-text">MyCC</span>?</h2>
+                <p>The smartest way to find your perfect credit card match</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI-Powered Matching</h3>
+                    <p>Advanced algorithms analyze your profile to recommend cards that truly fit your lifestyle and financial goals.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Community Insights</h3>
+                    <p>Backed by real experiences from TechnoFino and Reddit communities for trustworthy recommendations.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Transparent Eligibility</h3>
+                    <p>Know your approval chances before you apply. No surprises, just honest assessments.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+                    <h3>Bank-Level Security</h3>
+                    <p>Your data is encrypted and secure. We never share your information without permission.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3>Always Free</h3>
+                    <p>No hidden fees, no subscriptions. Our service is 100% free for users, forever.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Real-Time Updates</h3>
+                    <p>Get notified about new card launches, offer changes, and personalized opportunities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>What Our <span class="gradient-text">Users Say</span></h2>
+                <p>Real stories from people who found their perfect credit card match</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"MyCC matched me with a cashback card that saves me ₹3,000 every month. The recommendation was spot-on for my shopping habits!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RK</div>
+                        <div class="author-info">
+                            <h4>Rahul Kumar</h4>
+                            <p>Mumbai, Maharashtra</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"I was worried about my eligibility, but MyCC showed me exactly which cards I could get approved for. Applied and got instant approval!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">PS</div>
+                        <div class="author-info">
+                            <h4>Priya Sharma</h4>
+                            <p>Bangalore, Karnataka</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"As a first-time credit card applicant, MyCC made everything so simple. Found my perfect card in under 5 minutes!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AM</div>
+                        <div class="author-info">
+                            <h4>Amit Mehta</h4>
+                            <p>Delhi, NCR</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Latest from Our <span class="gradient-text">Blog</span></h2>
+                <p>Expert insights, tips, and guides to help you make smart credit decisions</p>
+            </div>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-header">
+                        <div class="blog-category">Guide</div>
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="fas fa-calendar"></i> Jan 15, 2025</span>
+                            <span><i class="fas fa-clock"></i> 8 min read</span>
+                        </div>
+                        <h3>Top 5 Lifetime Free Credit Cards in India (2025 Edition)</h3>
+                        <a href="#" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-header">
+                        <div class="blog-category">Tips</div>
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="fas fa-calendar"></i> Jan 10, 2025</span>
+                            <span><i class="fas fa-clock"></i> 6 min read</span>
+                        </div>
+                        <h3>How to Improve Credit Score Before Applying for a Card</h3>
+                        <a href="#" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-header">
+                        <div class="blog-category">Comparison</div>
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="fas fa-calendar"></i> Jan 5, 2025</span>
+                            <span><i class="fas fa-clock"></i> 10 min read</span>
+                        </div>
+                        <h3>Rewards vs Cashback: Which Credit Card Makes More Sense?</h3>
+                        <a href="#" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Your Trusted <span class="gradient-text">Credit Card Advisor</span></h2>
+            </div>
+            <div class="about-content">
+                <p>MyCC was born from a simple idea: finding the right credit card shouldn't be overwhelming. We've built an intelligent platform that cuts through the noise and matches you with cards that truly fit your financial lifestyle.</p>
+                <p>Powered by community insights from thousands of real users and backed by advanced AI algorithms, we're on a mission to make credit card selection transparent, easy, and free for everyone in India.</p>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <i class="fas fa-heart value-icon"></i>
+                    <h3>User First</h3>
+                    <p>Every decision we make is centered around providing the best experience for you.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-lightbulb value-icon"></i>
+                    <h3>Transparent</h3>
+                    <p>No hidden agendas. We show you exactly why we recommend each card.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-shield value-icon"></i>
+                    <h3>Trustworthy</h3>
+                    <p>Your data security and privacy are our top priorities, always.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Frequently Asked <span class="gradient-text">Questions</span></h2>
+                <p>Everything you need to know about MyCC</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Is MyCC free to use?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes! MyCC is 100% free for users. We earn through affiliate partnerships with banks when you apply through our recommendations, but this never affects our matching algorithm or your experience.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Does checking my match affect my credit score?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Not at all! Using MyCC to find card matches does not impact your credit score. We don't perform hard credit checks. Your score is only affected when you officially apply for a card.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How accurate are the card matches?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Our matching algorithm has a 95% approval accuracy rate. We consider your income, credit profile, spending patterns, and current card portfolio to provide highly personalized recommendations based on actual bank criteria.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How do you earn money if the service is free?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            We earn a small commission from banks when you successfully apply for a card through our platform. This affiliate model keeps our service free for you while ensuring our recommendations remain unbiased and based solely on what's best for your needs.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Get in <span class="gradient-text">Touch</span></h2>
+                <p>Have questions? We'd love to hear from you</p>
+            </div>
+            <form class="contact-form" onsubmit="handleContactSubmit(event)">
+                <div class="form-field">
+                    <label for="contact-name">Your Name</label>
+                    <input type="text" id="contact-name" name="name" required placeholder="John Doe">
+                </div>
+                <div class="form-field">
+                    <label for="contact-email">Email Address</label>
+                    <input type="email" id="contact-email" name="email" required placeholder="john@example.com">
+                </div>
+                <div class="form-field">
+                    <label for="contact-message">Message</label>
+                    <textarea id="contact-message" name="message" required placeholder="Tell us how we can help you..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>MyCC</h3>
+                <p>Your trusted AI-powered credit card advisor. Find the perfect card match in minutes, completely free.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Product</h4>
+                <ul class="footer-links">
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#" onclick="startQuiz(); return false;">Get Started</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#faq">FAQs</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Disclaimer</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 MyCC. All rights reserved. Made with ❤️ in India</p>
+        </div>
+    </footer>
 
     <div id="questionContainer"></div>
 
@@ -1446,10 +2594,51 @@ const cardDatabase = [
 ];
 
 function startQuiz() {
-    document.getElementById('landing').classList.add('hidden');
+    // Hide all public sections
+    document.getElementById('home').style.display = 'none';
+    document.querySelectorAll('section:not(#home)').forEach(section => {
+        section.style.display = 'none';
+    });
+    document.querySelector('footer').style.display = 'none';
+
+    // Show progress tracker and start quiz
     document.getElementById('progressTracker').classList.add('show');
     currentQuestionIndex = 0;
     showQuestion();
+
+    // Scroll to top
+    window.scrollTo(0, 0);
+}
+
+// FAQ Toggle Function
+function toggleFAQ(element) {
+    const faqItem = element.parentElement;
+    const isActive = faqItem.classList.contains('active');
+
+    // Close all FAQ items
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+    });
+
+    // Toggle current item
+    if (!isActive) {
+        faqItem.classList.add('active');
+    }
+}
+
+// Contact Form Handler
+function handleContactSubmit(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('contact-name').value;
+    const email = document.getElementById('contact-email').value;
+    const message = document.getElementById('contact-message').value;
+
+    // Show success message
+    alert(`Thank you, ${name}! Your message has been received. We'll get back to you at ${email} shortly.`);
+
+    // Reset form
+    event.target.reset();
 }
 
 function updateProgressTracker() {
