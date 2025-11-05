@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" width="400" height="250">
+  <defs>
+    <linearGradient id="amazon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#232F3E;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#37475A;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="250" rx="12" fill="url(#amazon-grad)"/>
+  <text x="30" y="50" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FF9900">amazon pay</text>
+  <text x="330" y="50" font-family="Arial, sans-serif" font-size="14" fill="#F15A22">ICICI</text>
+  <rect x="30" y="100" width="60" height="45" rx="4" fill="#E8C547"/>
+  <text x="30" y="180" font-family="Courier New, monospace" font-size="18" fill="white" letter-spacing="2">•••• •••• •••• 3456</text>
+  <text x="30" y="215" font-family="Arial, sans-serif" font-size="16" fill="white">Amazon Pay Card</text>
+  <text x="280" y="215" font-family="Arial, sans-serif" font-size="14" fill="#FF9900">5% CASHBACK</text>
+</svg>

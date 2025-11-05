@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 36" height="36">
+  <rect width="200" height="36" fill="#DB0011" rx="2"/>
+  <polygon points="18,8 12,18 18,28 24,18" fill="white"/>
+  <polygon points="24,8 18,18 24,28 30,18" fill="white"/>
+  <text x="110" y="22" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle">HSBC</text>
+</svg>
