@@ -1,10 +1,7 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import '@/styles/globals.css';
 import Script from 'next/script';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'CardMatch Pro - Smart Credit Card Recommendations',
@@ -60,7 +57,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className={inter.className}>
+      <body>
         {children}
         <Analytics />
         {/* Google Analytics (optional) */}
