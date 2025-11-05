@@ -1025,6 +1025,402 @@
             background: #eff6ff;
         }
         
+        /* Progress Pill */
+        .progress-pill {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 50px;
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+            font-size: 15px;
+            font-weight: 700;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideInUp 0.4s ease;
+        }
+        .progress-pill.show {
+            display: flex;
+        }
+        .progress-pill-icon {
+            font-size: 18px;
+        }
+        .progress-pill-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .progress-pill-main {
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .progress-pill-sub {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Loading Transition */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            flex-direction: column;
+            gap: 32px;
+        }
+        .loading-screen.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .loading-content {
+            text-align: center;
+            color: white;
+        }
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border: 6px solid rgba(255, 255, 255, 0.2);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 24px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loading-text {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        .loading-subtext {
+            font-size: 16px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+        .loading-dots {
+            display: inline-block;
+        }
+        .loading-dots span {
+            animation: blink 1.4s infinite;
+            animation-fill-mode: both;
+        }
+        .loading-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .loading-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes blink {
+            0%, 80%, 100% { opacity: 0; }
+            40% { opacity: 1; }
+        }
+
+        /* FAQ Accordion */
+        .faq-section {
+            background: white;
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 48px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0;
+        }
+        .faq-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .faq-header i {
+            font-size: 28px;
+            color: #3b82f6;
+        }
+        .faq-header h3 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+        }
+        .faq-item {
+            margin-bottom: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .faq-item:hover {
+            border-color: #3b82f6;
+        }
+        .faq-question {
+            background: white;
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 17px;
+            font-weight: 700;
+            color: #1e293b;
+            transition: all 0.2s;
+        }
+        .faq-item.active .faq-question {
+            background: linear-gradient(135deg, #eff6ff, #e0e7ff);
+            color: #1e40af;
+        }
+        .faq-question-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .faq-question i {
+            color: #3b82f6;
+        }
+        .faq-toggle {
+            font-size: 20px;
+            color: #64748b;
+            transition: transform 0.3s;
+        }
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+            color: #1e40af;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: #f8fafc;
+            padding: 0 24px;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 20px 24px;
+        }
+        .faq-answer p {
+            color: #475569;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* Learn More Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal.show {
+            display: flex;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideInDown 0.4s ease;
+        }
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .modal-header {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            padding: 32px;
+            border-radius: 24px 24px 0 0;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        .modal-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        .modal-subtitle {
+            opacity: 0.95;
+            font-size: 16px;
+        }
+        .modal-body {
+            padding: 32px;
+        }
+        .modal-section {
+            margin-bottom: 28px;
+        }
+        .modal-section:last-child {
+            margin-bottom: 0;
+        }
+        .modal-section-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #1e40af;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal-section-title i {
+            font-size: 20px;
+        }
+        .perk-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .perk-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border-radius: 12px;
+            border-left: 4px solid #3b82f6;
+        }
+        .perk-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e40af;
+            font-size: 18px;
+        }
+        .perk-content {
+            flex: 1;
+        }
+        .perk-title {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+        .perk-desc {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .learn-more-btn {
+            width: 100%;
+            padding: 14px;
+            background: white;
+            color: #1e40af;
+            border: 2px solid #3b82f6;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .learn-more-btn:hover {
+            background: linear-gradient(135deg, #eff6ff, #e0e7ff);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Spend Required Box */
+        .spend-required-box {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 24px;
+            border: 2px solid #fbbf24;
+        }
+        .spend-required-label {
+            font-size: 13px;
+            color: #78350f;
+            margin-bottom: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .spend-required-amount {
+            font-size: 24px;
+            font-weight: 900;
+            color: #92400e;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+        .spend-required-note {
+            font-size: 12px;
+            color: #78350f;
+            font-weight: 500;
+        }
+
         @media (max-width: 768px) {
             .hero {
                 grid-template-columns: 1fr;
@@ -1041,6 +1437,20 @@
             .question-card { padding: 40px 28px; }
             .card-mockup { width: 280px; height: 176px; }
             .overview-grid { grid-template-columns: 1fr; }
+            .progress-pill {
+                bottom: 16px;
+                right: 16px;
+                left: 16px;
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+            .faq-section {
+                padding: 32px 24px;
+            }
+            .modal-content {
+                margin: 0;
+                border-radius: 16px;
+            }
         }
     </style>
 </head>
@@ -1060,6 +1470,38 @@
     <div class="progress-tracker" id="progressTracker">
         <div class="tracker-content" id="trackerContent">
             <span class="tracker-label">Your Selections:</span>
+        </div>
+    </div>
+
+    <!-- Progress Pill -->
+    <div class="progress-pill" id="progressPill">
+        <i class="fas fa-clipboard-check progress-pill-icon"></i>
+        <div class="progress-pill-text">
+            <div class="progress-pill-main" id="progressPillText">3 of 8 questions answered</div>
+            <div class="progress-pill-sub">Keep going!</div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Analyzing Your Spending Pattern<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></div>
+            <div class="loading-subtext">Matching you with the best credit cards</div>
+        </div>
+    </div>
+
+    <!-- Learn More Modal -->
+    <div class="modal" id="learnMoreModal" onclick="if(event.target === this) closeModal()">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+                <div class="modal-title" id="modalCardName">Card Name</div>
+                <div class="modal-subtitle" id="modalCardBank">Bank Name</div>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Dynamic content will be inserted here -->
+            </div>
         </div>
     </div>
 
@@ -1098,7 +1540,7 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80" alt="Professional with credit card" />
+                <img src="https://images.unsplash.com/photo-1556742111-a301076d9d18?w=800&q=80" alt="Person happily holding credit card" />
             </div>
         </div>
         <div class="stats">
@@ -1142,7 +1584,51 @@
             </div>
 
             <div class="cards-grid" id="cardsContainer"></div>
-            
+
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <div class="faq-header">
+                    <i class="fas fa-circle-question"></i>
+                    <h3>Frequently Asked Questions</h3>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <div class="faq-question-text">
+                            <i class="fas fa-shield-halved"></i>
+                            <span>Does applying impact my credit score?</span>
+                        </div>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Most banks perform a "hard inquiry" when you apply for a credit card, which may temporarily lower your credit score by a few points. However, checking your eligibility through bank pre-qualification tools (soft inquiry) does not impact your score. We recommend checking eligibility first before applying.</p>
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <div class="faq-question-text">
+                            <i class="fas fa-layer-group"></i>
+                            <span>Can I get multiple cards?</span>
+                        </div>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Many users have multiple credit cards to maximize benefits across different spending categories. However, it's recommended to space out applications by 2-3 months to minimize credit score impact. Start with the card that best matches your primary spending category.</p>
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <div class="faq-question-text">
+                            <i class="fas fa-bullseye"></i>
+                            <span>Why were these cards chosen for me?</span>
+                        </div>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our algorithm analyzes your income, credit score, spending categories, payment preferences, and financial goals to match you with cards offering the best value. We also factor in your approval likelihood and break-even potential based on annual fees. Each card's match explanation shows the specific reasons it was selected for you.</p>
+                    </div>
+                </div>
+            </div>
+
             <div class="actions-card">
                 <h3>What would you like to do next?</h3>
                 <div class="action-buttons">
@@ -1176,7 +1662,7 @@ let selectedMulti = [];
 const bankLogos = {
     hdfc: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HDFC_Bank_Logo.svg/200px-HDFC_Bank_Logo.svg.png',
     sbi: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/SBI-logo.svg/200px-SBI-logo.svg.png',
-    axis: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Axis_Bank_logo.svg/200px-Axis_Bank_logo.svg.png',
+    axis: 'https://upload.wikimedia.org/wikipedia/en/4/44/AXISBank_Logo.svg',
     icici: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/ICICI_Bank_Logo.svg/200px-ICICI_Bank_Logo.svg.png',
     amex: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/200px-American_Express_logo_%282018%29.svg.png',
     hsbc: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/HSBC_logo_%282018%29.svg/200px-HSBC_logo_%282018%29.svg.png'
@@ -1332,7 +1818,15 @@ const cardDatabase = [
         minCreditScore: 750,
         annualFee: 12500,
         estimatedValue: 95000,
+        effectiveRewardRate: 0.033,
         features: ['3.33-33.3% rewards on all spends', 'Best overall premium card per TechnoFino', 'Unlimited lounge access worldwide', 'Superior redemption value on travel'],
+        detailedPerks: [
+            { icon: 'fas fa-gift', title: '3.33% Base Rewards', desc: 'Earn 3.33 reward points per ₹150 spent, worth ₹5 when redeemed for flights/hotels' },
+            { icon: 'fas fa-plane-departure', title: 'Premium Lounge Access', desc: 'Unlimited domestic & international lounge access with Priority Pass for you and a guest' },
+            { icon: 'fas fa-hotel', title: 'Luxury Hotel Benefits', desc: 'Complimentary room upgrades, late checkout, and breakfast at 1000+ luxury hotels' },
+            { icon: 'fas fa-star', title: 'Milestone Rewards', desc: 'Up to 33.3% rewards on milestone spends through bonus reward points' },
+            { icon: 'fas fa-shield-alt', title: 'Comprehensive Insurance', desc: 'Travel insurance, lost card liability, purchase protection, and air accident cover' }
+        ],
         type: 'premium',
         categories: ['travel', 'dining', 'shopping', 'luxury'],
         goals: ['rewards', 'travel', 'lifestyle'],
@@ -1349,7 +1843,15 @@ const cardDatabase = [
         minCreditScore: 700,
         annualFee: 999,
         estimatedValue: 30000,
+        effectiveRewardRate: 0.05,
         features: ['5% cashback on online spends (₹5K monthly cap)', '1% cashback on offline spends', 'Simple, no-frills rewards structure', 'Community favorite on TechnoFino'],
+        detailedPerks: [
+            { icon: 'fas fa-percent', title: '5% Online Cashback', desc: 'Earn 5% cashback on all online spends including e-commerce, food delivery, and bill payments (₹5,000 monthly cap)' },
+            { icon: 'fas fa-credit-card', title: '1% Offline Cashback', desc: 'Earn 1% cashback on all offline retail and swipe transactions with no category restrictions' },
+            { icon: 'fas fa-infinity', title: 'No Reward Expiry', desc: 'Cashback credited directly to your statement - no reward points to track or redeem' },
+            { icon: 'fas fa-tag', title: 'Low Annual Fee', desc: 'Just ₹999 annual fee, easily waived on ₹2L annual spends' },
+            { icon: 'fas fa-bolt', title: 'Instant Rewards', desc: 'Cashback credited within 90 days of transaction date, no complicated redemption process' }
+        ],
         type: 'standard',
         categories: ['shopping'],
         goals: ['cashback', 'lowfee'],
@@ -1366,7 +1868,15 @@ const cardDatabase = [
         minCreditScore: 750,
         annualFee: 10000,
         estimatedValue: 88000,
+        effectiveRewardRate: 0.048,
         features: ['12 Edge Rewards per ₹200 (4.8% value)', 'Excellent transfer partners for travel', 'Milestone benefits up to ₹1L annual spend', 'Premium travel lounges'],
+        detailedPerks: [
+            { icon: 'fas fa-gem', title: '12 Edge Rewards/₹200', desc: 'Earn accelerated Edge Rewards with excellent redemption value through airline transfer partners' },
+            { icon: 'fas fa-plane', title: 'Travel Transfer Partners', desc: 'Transfer points to airlines like Singapore Airlines, Vistara at 5:2 or 5:4 ratio for maximum value' },
+            { icon: 'fas fa-trophy', title: 'Milestone Benefits', desc: 'Earn up to 25,000 bonus points on achieving annual spend milestones' },
+            { icon: 'fas fa-building-columns', title: 'Premium Lounge Access', desc: 'Complimentary domestic and international lounge access with Priority Pass' },
+            { icon: 'fas fa-concierge-bell', title: 'Concierge Services', desc: '24/7 premium concierge for travel bookings, dining reservations, and lifestyle assistance' }
+        ],
         type: 'premium',
         categories: ['travel', 'dining', 'shopping'],
         goals: ['rewards', 'travel'],
@@ -1383,7 +1893,15 @@ const cardDatabase = [
         minCreditScore: 650,
         annualFee: 0,
         estimatedValue: 18000,
+        effectiveRewardRate: 0.05,
         features: ['5% cashback on Amazon with Prime', '2% cashback on Amazon Pay payments', 'Lifetime free - no annual fee', 'Instant digital card approval'],
+        detailedPerks: [
+            { icon: 'fas fa-amazon', title: '5% Amazon Cashback', desc: 'Earn 5% unlimited cashback on Amazon.in purchases if you have Prime membership' },
+            { icon: 'fas fa-wallet', title: '2% Amazon Pay Cashback', desc: 'Get 2% cashback on Amazon Pay transactions at partner merchants' },
+            { icon: 'fas fa-shopping-bag', title: '1% Everywhere Cashback', desc: 'Earn 1% cashback on all other purchases with no category restrictions' },
+            { icon: 'fas fa-tags', title: 'Lifetime Free', desc: 'Zero annual fee, no minimum spend requirement, completely free to own and use' },
+            { icon: 'fas fa-mobile-alt', title: 'Instant Digital Approval', desc: 'Get instant digital card for immediate use on Amazon and other online platforms' }
+        ],
         type: 'standard',
         categories: ['shopping'],
         goals: ['cashback', 'lowfee'],
@@ -1400,7 +1918,15 @@ const cardDatabase = [
         minCreditScore: 650,
         annualFee: 0,
         estimatedValue: 18000,
+        effectiveRewardRate: 0.10,
         features: ['10% cashback on Swiggy (₹1,500 monthly cap)', '5% cashback on Swiggy partner brands', 'Lifetime free card', 'Instant digital approval'],
+        detailedPerks: [
+            { icon: 'fas fa-utensils', title: '10% Swiggy Cashback', desc: 'Earn 10% cashback on all Swiggy food delivery and dining orders (₹1,500 monthly cap)' },
+            { icon: 'fas fa-store', title: '5% Partner Brands', desc: 'Get 5% cashback on purchases from Swiggy partner brands across categories' },
+            { icon: 'fas fa-shopping-cart', title: '1% Other Spends', desc: 'Earn 1% cashback on all other transactions including offline and online purchases' },
+            { icon: 'fas fa-tag', title: 'Zero Annual Fee', desc: 'Completely free credit card with no annual charges or hidden fees' },
+            { icon: 'fas fa-bolt', title: 'Quick Approval', desc: 'Fast digital approval process with instant card number for immediate use' }
+        ],
         type: 'standard',
         categories: ['dining'],
         goals: ['cashback', 'lowfee'],
@@ -1417,7 +1943,15 @@ const cardDatabase = [
         minCreditScore: 750,
         annualFee: 5000,
         estimatedValue: 65000,
+        effectiveRewardRate: 0.04,
         features: ['₹4,000 Taj hotel voucher annually', '8 complimentary airport lounge visits', 'High travel rewards rate', 'Most stable rewards program (never devalued)'],
+        detailedPerks: [
+            { icon: 'fas fa-hotel', title: '₹4,000 Taj Voucher', desc: 'Annual Taj hotel voucher worth ₹4,000 effectively reducing your annual fee to just ₹1,000' },
+            { icon: 'fas fa-plane-departure', title: 'Airport Lounge Access', desc: '8 complimentary domestic lounge visits per year for you and a guest' },
+            { icon: 'fas fa-gift', title: 'High Reward Rate', desc: 'Earn 1,000 Membership Rewards points per ₹50 spent with excellent redemption options' },
+            { icon: 'fas fa-shield', title: 'Never Devalued', desc: 'Amex Membership Rewards program has never been devalued, most stable rewards in India' },
+            { icon: 'fas fa-percent', title: 'Welcome Benefits', desc: 'Attractive welcome bonus and milestone rewards on meeting spend targets' }
+        ],
         type: 'standard',
         categories: ['travel', 'dining'],
         goals: ['travel', 'lifestyle'],
@@ -1434,7 +1968,15 @@ const cardDatabase = [
         minCreditScore: 700,
         annualFee: 999,
         estimatedValue: 12000,
+        effectiveRewardRate: 0.10,
         features: ['10% cashback on dining & groceries', '10% cashback on entertainment', 'Fee waiver on ₹2L annual spend', 'Premium cardholder benefits'],
+        detailedPerks: [
+            { icon: 'fas fa-utensils', title: '10% Dining Cashback', desc: 'Earn 10% cashback on dining transactions at restaurants and food delivery apps' },
+            { icon: 'fas fa-basket-shopping', title: '10% Groceries Cashback', desc: 'Get 10% cashback on grocery purchases both online and at supermarkets' },
+            { icon: 'fas fa-film', title: '10% Entertainment', desc: 'Enjoy 10% cashback on entertainment including movies, streaming, and events' },
+            { icon: 'fas fa-tag', title: 'Fee Waiver', desc: 'Annual fee of ₹999 waived on spending ₹2 lakhs annually' },
+            { icon: 'fas fa-credit-card', title: '2% Other Spends', desc: 'Earn 2% cashback on all other categories with no restrictions' }
+        ],
         type: 'standard',
         categories: ['dining', 'groceries', 'entertainment'],
         goals: ['cashback', 'lifestyle'],
@@ -1445,10 +1987,52 @@ const cardDatabase = [
     }
 ];
 
+// Load saved progress from sessionStorage on page load
+window.addEventListener('DOMContentLoaded', () => {
+    const saved = sessionStorage.getItem('quizProgress');
+    if (saved) {
+        const data = JSON.parse(saved);
+        Object.assign(userData, data.userData);
+        currentQuestionIndex = data.currentQuestionIndex;
+        selectedMulti = data.selectedMulti || [];
+
+        if (currentQuestionIndex >= 0) {
+            document.getElementById('landing').classList.add('hidden');
+            document.getElementById('progressTracker').classList.add('show');
+            document.getElementById('progressPill').classList.add('show');
+            showQuestion();
+        }
+    }
+});
+
+// Save progress to sessionStorage
+function saveProgress() {
+    sessionStorage.setItem('quizProgress', JSON.stringify({
+        userData,
+        currentQuestionIndex,
+        selectedMulti
+    }));
+}
+
+// Update progress pill
+function updateProgressPill() {
+    const pill = document.getElementById('progressPill');
+    const text = document.getElementById('progressPillText');
+    if (currentQuestionIndex >= 0 && currentQuestionIndex < questions.length) {
+        text.textContent = `${currentQuestionIndex + 1} of ${questions.length} questions answered`;
+        pill.classList.add('show');
+    } else {
+        pill.classList.remove('show');
+    }
+}
+
 function startQuiz() {
     document.getElementById('landing').classList.add('hidden');
     document.getElementById('progressTracker').classList.add('show');
+    document.getElementById('progressPill').classList.add('show');
     currentQuestionIndex = 0;
+    saveProgress();
+    updateProgressPill();
     showQuestion();
 }
 
@@ -1538,6 +2122,7 @@ function saveInput(id) {
     const value = document.getElementById(`input_${id}`).value.trim();
     if (!value) { alert('Please enter a value'); return; }
     userData[questions[currentQuestionIndex].field] = value;
+    saveProgress();
     nextQuestion();
 }
 
@@ -1583,24 +2168,43 @@ function toggleOption(id, value, min, max) {
 function saveMultiple(id) {
     userData[questions[currentQuestionIndex].field] = selectedMulti;
     selectedMulti = [];
+    saveProgress();
     nextQuestion();
 }
 
 function nextQuestion() {
     updateProgressTracker();
     currentQuestionIndex++;
+    saveProgress();
+    updateProgressPill();
     if (currentQuestionIndex < questions.length) {
         showQuestion();
     } else {
-        showResults();
+        // Show loading screen before results
+        showLoadingScreen();
     }
 }
 
 function goBack() {
     if (currentQuestionIndex > 0) {
         currentQuestionIndex--;
+        saveProgress();
+        updateProgressPill();
         showQuestion();
     }
+}
+
+function showLoadingScreen() {
+    document.getElementById('questionContainer').innerHTML = '';
+    document.getElementById('loadingScreen').classList.add('show');
+
+    // Show loading for 2 seconds, then show results
+    setTimeout(() => {
+        document.getElementById('loadingScreen').classList.remove('show');
+        showResults();
+        // Clear session storage after showing results
+        sessionStorage.removeItem('quizProgress');
+    }, 2000);
 }
 
 function calculateEligibility(card) {
@@ -1723,9 +2327,87 @@ function generateOverview() {
     overview.innerHTML = html;
 }
 
+// FAQ Toggle
+function toggleFaq(element) {
+    element.classList.toggle('active');
+}
+
+// Modal Functions
+function openModal(card) {
+    const modal = document.getElementById('learnMoreModal');
+    document.getElementById('modalCardName').textContent = card.name;
+    document.getElementById('modalCardBank').textContent = card.bank;
+
+    let perksHTML = '<div class="modal-section"><div class="modal-section-title"><i class="fas fa-star"></i>Detailed Benefits & Perks</div><div class="perk-list">';
+
+    card.detailedPerks.forEach(perk => {
+        perksHTML += `
+            <div class="perk-item">
+                <div class="perk-icon"><i class="${perk.icon}"></i></div>
+                <div class="perk-content">
+                    <div class="perk-title">${perk.title}</div>
+                    <div class="perk-desc">${perk.desc}</div>
+                </div>
+            </div>
+        `;
+    });
+
+    perksHTML += '</div></div>';
+
+    // Add rewards value section
+    perksHTML += `
+        <div class="modal-section">
+            <div class="modal-section-title"><i class="fas fa-calculator"></i>Value Breakdown</div>
+            <div class="card-details">
+                <div class="card-detail">
+                    <span class="card-detail-label">Annual Fee</span>
+                    <span class="card-detail-value">${card.annualFee === 0 ? 'Lifetime Free' : '₹' + card.annualFee.toLocaleString()}</span>
+                </div>
+                <div class="card-detail">
+                    <span class="card-detail-label">Estimated Annual Value</span>
+                    <span class="card-detail-value high">₹${card.estimatedValue.toLocaleString()}</span>
+                </div>
+                <div class="card-detail">
+                    <span class="card-detail-label">Net Annual Benefit</span>
+                    <span class="card-detail-value high">₹${(card.estimatedValue - card.annualFee).toLocaleString()}</span>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('modalBody').innerHTML = perksHTML;
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    const modal = document.getElementById('learnMoreModal');
+    modal.classList.remove('show');
+    document.body.style.overflow = 'auto';
+}
+
+// Calculate Spend Required
+function calculateSpendRequired(card) {
+    if (card.annualFee === 0) {
+        return { monthly: 0, text: 'No minimum spend required - lifetime free card!' };
+    }
+
+    // Calculate required annual spend to break even
+    // Assuming the effective reward rate
+    const rewardRate = card.effectiveRewardRate || 0.03;
+    const requiredAnnualSpend = card.annualFee / rewardRate;
+    const requiredMonthlySpend = requiredAnnualSpend / 12;
+
+    return {
+        monthly: Math.round(requiredMonthlySpend),
+        text: `to break even on the annual fee`
+    };
+}
+
 function showResults() {
     document.getElementById('questionContainer').innerHTML = '';
     document.getElementById('progressTracker').style.display = 'none';
+    document.getElementById('progressPill').classList.remove('show');
     document.getElementById('results').classList.remove('hidden');
     document.getElementById('resultName').textContent = userData.name;
     
@@ -1791,9 +2473,23 @@ function showResults() {
                 </div>
             </div>
         `;
-        
+
+        const spendRequired = calculateSpendRequired(card);
+        const spendRequiredBox = spendRequired.monthly > 0 ? `
+            <div class="spend-required-box">
+                <div class="spend-required-label">Estimated Monthly Spend Required</div>
+                <div class="spend-required-amount">₹${spendRequired.monthly.toLocaleString()}/month</div>
+                <div class="spend-required-note">${spendRequired.text}</div>
+            </div>
+        ` : `
+            <div class="spend-required-box">
+                <div class="spend-required-label">Monthly Spend</div>
+                <div class="spend-required-note" style="font-size: 14px; font-weight: 700; margin-top: 8px;">${spendRequired.text}</div>
+            </div>
+        `;
+
         const affiliateUrl = `${card.applyUrl}?ref=${card.affiliateTag}&partner=${card.partnerId}&user=${encodeURIComponent(userData.name)}`;
-        
+
         return `
             <div class="${cardClass}">
                 ${cardVisual}
@@ -1807,6 +2503,7 @@ function showResults() {
                         <div class="savings-amount">₹${card.estimatedValue.toLocaleString()}</div>
                         <div class="savings-disclaimer">*Based on typical spending patterns. Actual value may vary.</div>
                     </div>
+                    ${spendRequiredBox}
                     <div class="card-details">
                         <div class="card-detail">
                             <span class="card-detail-label">Annual Fee</span>
@@ -1824,6 +2521,10 @@ function showResults() {
                     <div class="features">
                         ${card.features.map(f => `<div class="feature"><i class="fas fa-circle-check feature-icon"></i><span>${f}</span></div>`).join('')}
                     </div>
+                    <button class="learn-more-btn" onclick='openModal(${JSON.stringify(card).replace(/'/g, "&apos;")})'>
+                        <i class="fas fa-info-circle"></i>
+                        Learn More About This Card
+                    </button>
                     <a href="${affiliateUrl}" class="apply-btn" target="_blank" rel="noopener">
                         Apply Now
                         <i class="fas fa-arrow-right"></i>
