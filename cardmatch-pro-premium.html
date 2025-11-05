@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CardMatch Pro - Smart Card Recommendations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 20px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e40af;
+            font-weight: 900;
+            font-size: 22px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+        .header-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        /* Progress Tracker */
+        .progress-tracker {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 24px;
+            display: none;
+        }
+        .progress-tracker.show {
+            display: block;
+        }
+        .tracker-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+        .tracker-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .tracker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #eff6ff, #e0e7ff);
+            color: #1e40af;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid #93c5fd;
+        }
+        .tracker-item i {
+            font-size: 12px;
+        }
+        
+        /* Landing Page - Split Screen Hero */
+        .landing {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #eff6ff 0%, #f8fafc 100%);
+        }
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .hero-content {
+            padding-right: 20px;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+            color: #1e40af;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            border: 1px solid #93c5fd;
+        }
+        .badge i {
+            font-size: 16px;
+        }
+        .hero-content h1 {
+            font-size: 58px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-content p {
+            font-size: 19px;
+            color: #475569;
+            margin-bottom: 36px;
+            line-height: 1.6;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            border: none;
+            padding: 20px 48px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.4);
+        }
+        .hero-note {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #64748b;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .hero-note-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-note-item i {
+            color: #3b82f6;
+            font-size: 16px;
+        }
+        .hero-image {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+            padding: 0 24px;
+        }
+        .stat {
+            background: white;
+            text-align: center;
+            padding: 36px 24px;
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0;
+        }
+        .stat-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+            color: #3b82f6;
+        }
+        .stat-value {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            color: #64748b;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        
+        /* Question Pages */
+        .question-page {
+            min-height: 100vh;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+        }
+        .question-container {
+            width: 100%;
+            max-width: 900px;
+        }
+        .progress {
+            margin-bottom: 40px;
+        }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 50px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1e40af, #3b82f6);
+            transition: width 0.4s ease;
+            border-radius: 50px;
+        }
+        .question-card {
+            background: white;
+            border-radius: 24px;
+            padding: 56px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0;
+        }
+        .question-icon {
+            font-size: 56px;
+            margin-bottom: 24px;
+            display: block;
+            color: #3b82f6;
+        }
+        .question-card h2 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+        .question-card .greeting {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+        .question-card .subtitle {
+            font-size: 17px;
+            color: #64748b;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 17px;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: #eff6ff;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .option-btn {
+            width: 100%;
+            padding: 24px 24px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 600;
+            color: #1e293b;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .option-btn:hover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+            color: #1e40af;
+            transform: translateX(4px);
+        }
+        .option-btn.selected {
+            border-color: #3b82f6;
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+            color: #1e40af;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+        .option-icon {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #1e40af;
+        }
+        .option-btn:hover .option-icon {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+        .option-btn.selected .option-icon {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+        .multi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .multi-option {
+            padding: 28px 20px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .multi-option:hover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        }
+        .multi-option.selected {
+            border-color: #3b82f6;
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+            color: #1e40af;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+        }
+        .multi-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 12px;
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #1e40af;
+        }
+        .multi-option:hover .multi-icon {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+        .multi-option.selected .multi-icon {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+        .multi-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .multi-option.selected .multi-label {
+            color: #1e40af;
+        }
+        .continue-btn {
+            width: 100%;
+            margin-top: 32px;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .continue-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+        .continue-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .back-btn {
+            margin-top: 24px;
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .back-btn:hover {
+            color: #1e40af;
+        }
+        
+        /* Results */
+        .results-page {
+            min-height: 100vh;
+            background: #f8fafc;
+            padding: 60px 24px;
+        }
+        .results-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .results-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .success-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #065f46;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border: 1px solid #6ee7b7;
+        }
+        .success-badge i {
+            font-size: 16px;
+        }
+        .results-header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+        .name-highlight {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gamified-tagline {
+            font-size: 20px;
+            color: #059669;
+            font-weight: 700;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        /* Overview Panel */
+        .overview-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 48px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0;
+        }
+        .overview-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .overview-header i {
+            font-size: 24px;
+            color: #3b82f6;
+        }
+        .overview-header h3 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .overview-item {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #3b82f6;
+        }
+        .overview-item-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .overview-item-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .overview-item-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+        .overview-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: white;
+            color: #3b82f6;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid #93c5fd;
+        }
+        .overview-tag i {
+            font-size: 11px;
+        }
+        
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 32px;
+            margin-bottom: 64px;
+        }
+        .card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+        .card.best {
+            border: 3px solid #3b82f6;
+            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2);
+        }
+        .card-visual {
+            position: relative;
+            height: 240px;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .card-visual::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+        .card-visual.hdfc { background: linear-gradient(135deg, #004c8c, #0066b2); }
+        .card-visual.sbi { background: linear-gradient(135deg, #1c4587, #2563eb); }
+        .card-visual.axis { background: linear-gradient(135deg, #7c2d12, #dc2626); }
+        .card-visual.icici { background: linear-gradient(135deg, #ea580c, #fb923c); }
+        .card-visual.amex { background: linear-gradient(135deg, #0f766e, #14b8a6); }
+        .card-visual.hsbc { background: linear-gradient(135deg, #b91c1c, #dc2626); }
+        
+        .card-mockup {
+            width: 320px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            padding: 24px;
+            position: relative;
+            z-index: 2;
+        }
+        .card-mockup .card-chip {
+            width: 48px;
+            height: 36px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 6px;
+            margin-bottom: 24px;
+        }
+        .card-mockup .card-number {
+            font-family: 'Courier New', monospace;
+            color: white;
+            font-size: 20px;
+            letter-spacing: 3px;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+        .card-mockup .card-name {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+        
+        /* Bank Logo Section */
+        .bank-logo-section {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        .bank-logo-container {
+            width: 90px;
+            height: 70px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        .card:hover .bank-logo-container {
+            transform: scale(1.05);
+        }
+        .card-visual.hdfc .bank-logo-container {
+            box-shadow: 0 6px 20px rgba(0, 76, 140, 0.4);
+        }
+        .card-visual.sbi .bank-logo-container {
+            box-shadow: 0 6px 20px rgba(28, 69, 135, 0.4);
+        }
+        .card-visual.axis .bank-logo-container {
+            box-shadow: 0 6px 20px rgba(124, 45, 18, 0.4);
+        }
+        .card-visual.icici .bank-logo-container {
+            box-shadow: 0 6px 20px rgba(234, 88, 12, 0.4);
+        }
+        .card-visual.amex .bank-logo-container {
+            box-shadow: 0 6px 20px rgba(15, 118, 110, 0.4);
+        }
+        .card-visual.hsbc .bank-logo-container {
+            box-shadow: 0 6px 20px rgba(185, 28, 28, 0.4);
+        }
+        
+        .bank-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .powered-by {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 3px 8px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .eligibility-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            z-index: 10;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .eligibility-badge.high {
+            background: rgba(209, 250, 229, 0.95);
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+        .eligibility-badge.medium {
+            background: rgba(254, 243, 199, 0.95);
+            color: #92400e;
+            border: 1px solid #fcd34d;
+        }
+        .eligibility-badge.low {
+            background: rgba(254, 226, 226, 0.95);
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+        
+        .card-content {
+            padding: 36px;
+        }
+        .card-badge {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .card-badge span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+        .card-badge.best span {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+        }
+        .card-badge.rank span {
+            background: #64748b;
+        }
+        .card h3 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+        .card .bank {
+            color: #64748b;
+            font-size: 15px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        /* Transparent Match Explanation */
+        .match-explanation {
+            background: linear-gradient(135deg, #eff6ff, #e0e7ff);
+            border-left: 4px solid #3b82f6;
+            padding: 18px;
+            margin-bottom: 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        .match-explanation strong {
+            color: #1e40af;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 15px;
+        }
+        .match-criteria {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        .match-criteria-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 6px;
+            color: #475569;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .match-criteria-item i {
+            color: #3b82f6;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+        
+        .savings-box {
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .savings-label {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .savings-amount {
+            font-size: 40px;
+            font-weight: 900;
+            color: #1e40af;
+            margin-bottom: 6px;
+            letter-spacing: -1px;
+        }
+        .savings-disclaimer {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+            font-style: italic;
+            margin-top: 8px;
+        }
+        
+        .card-details {
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+        .card-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .card-detail:last-child {
+            border-bottom: none;
+        }
+        .card-detail-label {
+            color: #64748b;
+            font-weight: 600;
+        }
+        .card-detail-value {
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .card-detail-value.free {
+            color: #059669;
+        }
+        .card-detail-value.high {
+            color: #059669;
+        }
+        
+        .features {
+            margin-bottom: 28px;
+        }
+        .feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #475569;
+            font-weight: 500;
+        }
+        .feature-icon {
+            color: #059669;
+            font-size: 14px;
+            margin-top: 2px;
+        }
+        .apply-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .apply-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+        
+        /* Actions */
+        .actions-card {
+            background: white;
+            border-radius: 24px;
+            padding: 56px;
+            text-align: center;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0;
+        }
+        .actions-card h3 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 32px;
+            letter-spacing: -1px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .action-btn {
+            padding: 18px 36px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .action-btn.primary {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        .action-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+        .action-btn.secondary {
+            background: white;
+            color: #475569;
+            border: 2px solid #e2e8f0;
+        }
+        .action-btn.secondary:hover {
+            border-color: #3b82f6;
+            color: #1e40af;
+            background: #eff6ff;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 60px 24px;
+            }
+            .hero-content {
+                padding-right: 0;
+            }
+            .hero-content h1 { font-size: 42px; }
+            .stats { grid-template-columns: 1fr; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .multi-grid { grid-template-columns: 1fr; }
+            .question-card { padding: 40px 28px; }
+            .card-mockup { width: 280px; height: 176px; }
+            .overview-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">C</div>
+                <div class="logo-text">CardMatch Pro</div>
+            </div>
+            <div class="header-badge">
+                <i class="fas fa-shield-halved"></i> Secure & Private
+            </div>
+        </div>
+    </div>
+
+    <div class="progress-tracker" id="progressTracker">
+        <div class="tracker-content" id="trackerContent">
+            <span class="tracker-label">Your Selections:</span>
+        </div>
+    </div>
+
+    <div id="landing" class="landing">
+        <div class="hero">
+            <div class="hero-content">
+                <div class="badge">
+                    <i class="fas fa-sparkles"></i>
+                    <span>AI-Powered • Community-Verified • 100% Free</span>
+                </div>
+                <h1>
+                    Find Your Perfect<br>
+                    <span class="gradient-text">Credit Card Match</span>
+                </h1>
+                <p>
+                    Get personalized recommendations based on your spending habits, income, and financial goals. 
+                    Powered by real community insights from TechnoFino & Reddit.
+                </p>
+                <button class="btn-primary" onclick="startQuiz()">
+                    Start My Card Match
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <div class="hero-note">
+                    <div class="hero-note-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>3-minute smart match</span>
+                    </div>
+                    <div class="hero-note-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Eligibility transparency</span>
+                    </div>
+                    <div class="hero-note-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>No spam, ever</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80" alt="Professional with credit card" />
+            </div>
+        </div>
+        <div class="stats">
+            <div class="stat">
+                <i class="fas fa-bolt stat-icon"></i>
+                <div class="stat-value">3 min</div>
+                <div class="stat-label">Smart Match Time</div>
+            </div>
+            <div class="stat">
+                <i class="fas fa-credit-card stat-icon"></i>
+                <div class="stat-value">20+</div>
+                <div class="stat-label">Verified Cards</div>
+            </div>
+            <div class="stat">
+                <i class="fas fa-circle-check stat-icon"></i>
+                <div class="stat-value">95%</div>
+                <div class="stat-label">Approval Accuracy</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="questionContainer"></div>
+
+    <div id="results" class="results-page hidden">
+        <div class="results-container">
+            <div class="results-header">
+                <div class="success-badge">
+                    <i class="fas fa-circle-check"></i>
+                    <span>Your Smart Match Is Ready</span>
+                </div>
+                <h1>Your Personalized Credit Card Picks, <span class="name-highlight" id="resultName"></span>!</h1>
+                <div class="gamified-tagline" id="gamifiedTagline"></div>
+            </div>
+
+            <div class="overview-panel">
+                <div class="overview-header">
+                    <i class="fas fa-clipboard-check"></i>
+                    <h3>Your Profile Overview - Recommendation Basis</h3>
+                </div>
+                <div class="overview-grid" id="overviewGrid"></div>
+            </div>
+
+            <div class="cards-grid" id="cardsContainer"></div>
+            
+            <div class="actions-card">
+                <h3>What would you like to do next?</h3>
+                <div class="action-buttons">
+                    <button class="action-btn primary">
+                        <i class="fas fa-envelope"></i>
+                        Email My Results
+                    </button>
+                    <button class="action-btn primary">
+                        <i class="fas fa-bell"></i>
+                        Get Alerts on Changes
+                    </button>
+                    <button class="action-btn primary">
+                        <i class="fas fa-bookmark"></i>
+                        Save for Later
+                    </button>
+                    <button class="action-btn secondary" onclick="location.reload()">
+                        <i class="fas fa-rotate-right"></i>
+                        Start Over
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+const userData = {};
+let currentQuestionIndex = -1;
+let selectedMulti = [];
+
+// Bank logo URLs from Wikipedia Commons
+const bankLogos = {
+    hdfc: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HDFC_Bank_Logo.svg/200px-HDFC_Bank_Logo.svg.png',
+    sbi: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/SBI-logo.svg/200px-SBI-logo.svg.png',
+    axis: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Axis_Bank_logo.svg/200px-Axis_Bank_logo.svg.png',
+    icici: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/ICICI_Bank_Logo.svg/200px-ICICI_Bank_Logo.svg.png',
+    amex: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/200px-American_Express_logo_%282018%29.svg.png',
+    hsbc: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/HSBC_logo_%282018%29.svg/200px-HSBC_logo_%282018%29.svg.png'
+};
+
+const questions = [
+    {
+        id: 'name',
+        type: 'input',
+        icon: 'fas fa-hand-wave',
+        title: "Let's get started!",
+        subtitle: "What should we call you?",
+        field: 'name',
+        placeholder: 'Enter your first name',
+        displayName: 'Name'
+    },
+    {
+        id: 'income',
+        type: 'multiple',
+        icon: 'fas fa-briefcase',
+        title: (name) => `Hi ${name}! What's your annual income?`,
+        subtitle: 'Select your income bracket',
+        field: 'income',
+        displayName: 'Income',
+        min: 1,
+        max: 1,
+        options: [
+            { value: 'under3', label: 'Under ₹3 Lakhs', icon: 'fas fa-coins', minIncome: 200000 },
+            { value: '3to5', label: '₹3 - 5 Lakhs', icon: 'fas fa-wallet', minIncome: 400000 },
+            { value: '5to10', label: '₹5 - 10 Lakhs', icon: 'fas fa-money-bill-wave', minIncome: 750000 },
+            { value: '10to15', label: '₹10 - 15 Lakhs', icon: 'fas fa-credit-card', minIncome: 1250000 },
+            { value: '15to36', label: '₹15 - 36 Lakhs', icon: 'fas fa-building-columns', minIncome: 2000000 },
+            { value: '36plus', label: 'Above ₹36 Lakhs', icon: 'fas fa-crown', minIncome: 3600000 }
+        ]
+    },
+    {
+        id: 'creditScore',
+        type: 'multiple',
+        icon: 'fas fa-chart-line',
+        title: (name) => `Great, ${name}! Your credit score range?`,
+        subtitle: 'Optional, but helps improve eligibility accuracy',
+        field: 'creditScore',
+        displayName: 'Credit Score',
+        min: 1,
+        max: 1,
+        options: [
+            { value: 'excellent', label: 'Excellent (750+)', icon: 'fas fa-star', score: 800 },
+            { value: 'good', label: 'Good (700-749)', icon: 'fas fa-check-circle', score: 725 },
+            { value: 'fair', label: 'Fair (650-699)', icon: 'fas fa-thumbs-up', score: 675 },
+            { value: 'poor', label: 'Poor / Not sure', icon: 'fas fa-question-circle', score: 600 }
+        ]
+    },
+    {
+        id: 'existingCards',
+        type: 'multiple',
+        icon: 'fas fa-credit-card',
+        title: (name) => `Nice! How many credit cards do you currently have?`,
+        subtitle: 'This helps us assess your approval likelihood',
+        field: 'existingCards',
+        displayName: 'Existing Cards',
+        min: 1,
+        max: 1,
+        options: [
+            { value: '0', label: 'None - this will be my first', icon: 'fas fa-seedling', count: 0 },
+            { value: '1', label: '1 card', icon: 'fas fa-bullseye', count: 1 },
+            { value: '2-3', label: '2-3 cards', icon: 'fas fa-layer-group', count: 2 },
+            { value: '4+', label: '4+ cards', icon: 'fas fa-trophy', count: 4 }
+        ]
+    },
+    {
+        id: 'spending',
+        type: 'multiple',
+        icon: 'fas fa-shopping-cart',
+        title: (name) => `Perfect, ${name}! What are your top spending categories?`,
+        subtitle: 'Select 2-4 categories where you spend the most',
+        field: 'spendingCategories',
+        displayName: 'Spending Categories',
+        min: 2,
+        max: 4,
+        options: [
+            { value: 'shopping', label: 'Online Shopping', icon: 'fas fa-shopping-cart' },
+            { value: 'travel', label: 'Travel & Hotels', icon: 'fas fa-plane' },
+            { value: 'dining', label: 'Dining & Food Delivery', icon: 'fas fa-utensils' },
+            { value: 'groceries', label: 'Groceries', icon: 'fas fa-basket-shopping' },
+            { value: 'fuel', label: 'Fuel', icon: 'fas fa-gas-pump' },
+            { value: 'entertainment', label: 'Entertainment', icon: 'fas fa-film' },
+            { value: 'bills', label: 'Bills & Utilities', icon: 'fas fa-file-invoice-dollar' },
+            { value: 'luxury', label: 'Luxury & Fashion', icon: 'fas fa-gem' }
+        ]
+    },
+    {
+        id: 'monthlySpend',
+        type: 'multiple',
+        icon: 'fas fa-sack-dollar',
+        title: (name) => `Good choices! What's your typical monthly card spend?`,
+        subtitle: 'Used to calculate break-even and maximize your rewards',
+        field: 'monthlySpend',
+        displayName: 'Monthly Spend',
+        min: 1,
+        max: 1,
+        options: [
+            { value: 'under10k', label: 'Less than ₹10,000', icon: 'fas fa-money-bill', amount: 8000 },
+            { value: '10to25k', label: '₹10,000 - ₹25,000', icon: 'fas fa-money-bill-wave', amount: 17500 },
+            { value: '25to50k', label: '₹25,000 - ₹50,000', icon: 'fas fa-money-bills', amount: 37500 },
+            { value: '50to100k', label: '₹50,000 - ₹1,00,000', icon: 'fas fa-sack-dollar', amount: 75000 },
+            { value: '100kplus', label: '₹1,00,000+', icon: 'fas fa-hand-holding-dollar', amount: 150000 }
+        ]
+    },
+    {
+        id: 'paymentPreference',
+        type: 'multiple',
+        icon: 'fas fa-mobile-screen',
+        title: (name) => `Almost done! Payment preferences?`,
+        subtitle: 'How do you typically make payments? (select all that apply)',
+        field: 'paymentPreference',
+        displayName: 'Payment Preferences',
+        min: 1,
+        max: 4,
+        options: [
+            { value: 'card_swipe', label: 'Card swipe/tap at stores', icon: 'fas fa-credit-card' },
+            { value: 'online', label: 'Online payments on websites', icon: 'fas fa-laptop' },
+            { value: 'mobile_wallet', label: 'Mobile wallets (GPay, PhonePe)', icon: 'fas fa-mobile-screen' },
+            { value: 'food_delivery', label: 'Food delivery apps', icon: 'fas fa-burger' },
+            { value: 'ecommerce', label: 'E-commerce apps', icon: 'fas fa-shopping-bag' }
+        ]
+    },
+    {
+        id: 'goal',
+        type: 'multiple',
+        icon: 'fas fa-bullseye',
+        title: (name) => `Last one, ${name}! What's your primary goal?`,
+        subtitle: 'Select 1-2 goals that matter most to you',
+        field: 'primaryGoal',
+        displayName: 'Primary Goals',
+        min: 1,
+        max: 2,
+        options: [
+            { value: 'cashback', label: 'Maximum cashback', icon: 'fas fa-dollar-sign' },
+            { value: 'rewards', label: 'Reward points', icon: 'fas fa-gift' },
+            { value: 'travel', label: 'Travel benefits', icon: 'fas fa-plane-departure' },
+            { value: 'lifestyle', label: 'Lifestyle perks', icon: 'fas fa-sparkles' },
+            { value: 'lowfee', label: 'Lifetime free / Low fee', icon: 'fas fa-tag' }
+        ]
+    }
+];
+
+const cardDatabase = [
+    {
+        name: 'HDFC Infinia',
+        bank: 'HDFC Bank',
+        bankCode: 'hdfc',
+        minIncome: 1500000,
+        minCreditScore: 750,
+        annualFee: 12500,
+        estimatedValue: 95000,
+        features: ['3.33-33.3% rewards on all spends', 'Best overall premium card per TechnoFino', 'Unlimited lounge access worldwide', 'Superior redemption value on travel'],
+        type: 'premium',
+        categories: ['travel', 'dining', 'shopping', 'luxury'],
+        goals: ['rewards', 'travel', 'lifestyle'],
+        paymentMethods: ['card_swipe', 'online', 'mobile_wallet'],
+        affiliateTag: 'cardmatch_hdfc_inf',
+        partnerId: 'HDFC_PARTNER_001',
+        applyUrl: 'https://example.com/apply/hdfc-infinia'
+    },
+    {
+        name: 'SBI Cashback',
+        bank: 'SBI Card',
+        bankCode: 'sbi',
+        minIncome: 500000,
+        minCreditScore: 700,
+        annualFee: 999,
+        estimatedValue: 30000,
+        features: ['5% cashback on online spends (₹5K monthly cap)', '1% cashback on offline spends', 'Simple, no-frills rewards structure', 'Community favorite on TechnoFino'],
+        type: 'standard',
+        categories: ['shopping'],
+        goals: ['cashback', 'lowfee'],
+        paymentMethods: ['online', 'ecommerce'],
+        affiliateTag: 'cardmatch_sbi_cash',
+        partnerId: 'SBI_PARTNER_001',
+        applyUrl: 'https://example.com/apply/sbi-cashback'
+    },
+    {
+        name: 'Axis Magnus',
+        bank: 'Axis Bank',
+        bankCode: 'axis',
+        minIncome: 1500000,
+        minCreditScore: 750,
+        annualFee: 10000,
+        estimatedValue: 88000,
+        features: ['12 Edge Rewards per ₹200 (4.8% value)', 'Excellent transfer partners for travel', 'Milestone benefits up to ₹1L annual spend', 'Premium travel lounges'],
+        type: 'premium',
+        categories: ['travel', 'dining', 'shopping'],
+        goals: ['rewards', 'travel'],
+        paymentMethods: ['card_swipe', 'online', 'mobile_wallet'],
+        affiliateTag: 'cardmatch_axis_mag',
+        partnerId: 'AXIS_PARTNER_001',
+        applyUrl: 'https://example.com/apply/axis-magnus'
+    },
+    {
+        name: 'Amazon Pay ICICI',
+        bank: 'ICICI Bank',
+        bankCode: 'icici',
+        minIncome: 300000,
+        minCreditScore: 650,
+        annualFee: 0,
+        estimatedValue: 18000,
+        features: ['5% cashback on Amazon with Prime', '2% cashback on Amazon Pay payments', 'Lifetime free - no annual fee', 'Instant digital card approval'],
+        type: 'standard',
+        categories: ['shopping'],
+        goals: ['cashback', 'lowfee'],
+        paymentMethods: ['online', 'ecommerce', 'mobile_wallet'],
+        affiliateTag: 'cardmatch_icici_amz',
+        partnerId: 'ICICI_PARTNER_001',
+        applyUrl: 'https://example.com/apply/amazon-pay-icici'
+    },
+    {
+        name: 'HDFC Swiggy',
+        bank: 'HDFC Bank',
+        bankCode: 'hdfc',
+        minIncome: 300000,
+        minCreditScore: 650,
+        annualFee: 0,
+        estimatedValue: 18000,
+        features: ['10% cashback on Swiggy (₹1,500 monthly cap)', '5% cashback on Swiggy partner brands', 'Lifetime free card', 'Instant digital approval'],
+        type: 'standard',
+        categories: ['dining'],
+        goals: ['cashback', 'lowfee'],
+        paymentMethods: ['food_delivery', 'online'],
+        affiliateTag: 'cardmatch_hdfc_swg',
+        partnerId: 'HDFC_PARTNER_002',
+        applyUrl: 'https://example.com/apply/hdfc-swiggy'
+    },
+    {
+        name: 'Amex Platinum Travel',
+        bank: 'American Express',
+        bankCode: 'amex',
+        minIncome: 1200000,
+        minCreditScore: 750,
+        annualFee: 5000,
+        estimatedValue: 65000,
+        features: ['₹4,000 Taj hotel voucher annually', '8 complimentary airport lounge visits', 'High travel rewards rate', 'Most stable rewards program (never devalued)'],
+        type: 'standard',
+        categories: ['travel', 'dining'],
+        goals: ['travel', 'lifestyle'],
+        paymentMethods: ['card_swipe', 'online'],
+        affiliateTag: 'cardmatch_amex_plt',
+        partnerId: 'AMEX_PARTNER_001',
+        applyUrl: 'https://example.com/apply/amex-platinum'
+    },
+    {
+        name: 'HSBC Live+',
+        bank: 'HSBC Bank',
+        bankCode: 'hsbc',
+        minIncome: 800000,
+        minCreditScore: 700,
+        annualFee: 999,
+        estimatedValue: 12000,
+        features: ['10% cashback on dining & groceries', '10% cashback on entertainment', 'Fee waiver on ₹2L annual spend', 'Premium cardholder benefits'],
+        type: 'standard',
+        categories: ['dining', 'groceries', 'entertainment'],
+        goals: ['cashback', 'lifestyle'],
+        paymentMethods: ['card_swipe', 'online', 'mobile_wallet'],
+        affiliateTag: 'cardmatch_hsbc_live',
+        partnerId: 'HSBC_PARTNER_001',
+        applyUrl: 'https://example.com/apply/hsbc-live-plus'
+    }
+];
+
+function startQuiz() {
+    document.getElementById('landing').classList.add('hidden');
+    document.getElementById('progressTracker').classList.add('show');
+    currentQuestionIndex = 0;
+    showQuestion();
+}
+
+function updateProgressTracker() {
+    const tracker = document.getElementById('trackerContent');
+    let html = '<span class="tracker-label">Your Selections:</span>';
+    
+    questions.forEach((q, idx) => {
+        if (idx < currentQuestionIndex && q.type !== 'input') {
+            const field = q.field;
+            let value = userData[field];
+            
+            if (Array.isArray(value)) {
+                value.forEach(v => {
+                    const option = q.options.find(o => o.value === v);
+                    if (option) {
+                        html += `<div class="tracker-item"><i class="${option.icon}"></i> ${option.label}</div>`;
+                    }
+                });
+            }
+        }
+    });
+    
+    tracker.innerHTML = html;
+}
+
+function showQuestion() {
+    const q = questions[currentQuestionIndex];
+    const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+    const container = document.getElementById('questionContainer');
+    const title = typeof q.title === 'function' ? q.title(userData.name || '') : q.title;
+    
+    let html = `
+        <div class="question-page">
+            <div class="question-container">
+                <div class="progress">
+                    <div class="progress-header">
+                        <span>Question ${currentQuestionIndex + 1} of ${questions.length}</span>
+                        <span>${Math.round(progress)}% Complete</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progress}%"></div>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <i class="${q.icon} question-icon"></i>
+    `;
+    
+    if (q.type === 'input') {
+        html += `
+            <h2>${title}</h2>
+            <p class="subtitle">${q.subtitle}</p>
+            <div class="form-group">
+                <input type="text" id="input_${q.id}" class="form-input" placeholder="${q.placeholder}" />
+            </div>
+            <button class="continue-btn" onclick="saveInput('${q.id}')">
+                Continue
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        `;
+    } else if (q.type === 'multiple') {
+        html += `<div class="greeting">${title}</div><p class="subtitle">${q.subtitle}</p>`;
+        if (q.options.length <= 5) {
+            html += `<div class="options">`;
+            q.options.forEach(opt => {
+                html += `<button class="option-btn" onclick="toggleOption('${q.id}', '${opt.value}', ${q.min}, ${q.max})"><div class="option-icon"><i class="${opt.icon}"></i></div>${opt.label}</button>`;
+            });
+            html += `</div>`;
+        } else {
+            html += `<div class="multi-grid">`;
+            q.options.forEach(opt => {
+                html += `<div class="multi-option" onclick="toggleOption('${q.id}', '${opt.value}', ${q.min}, ${q.max})"><div class="multi-icon"><i class="${opt.icon}"></i></div><div class="multi-label">${opt.label}</div></div>`;
+            });
+            html += `</div>`;
+        }
+        html += `<button class="continue-btn" id="continueBtn" disabled onclick="saveMultiple('${q.id}')">Continue <i class="fas fa-arrow-right"></i> (Select ${q.min}${q.max !== q.min ? '-' + q.max : ''})</button>`;
+    }
+    
+    if (currentQuestionIndex > 0) {
+        html += `<button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>`;
+    }
+    html += `</div></div></div>`;
+    container.innerHTML = html;
+}
+
+function saveInput(id) {
+    const value = document.getElementById(`input_${id}`).value.trim();
+    if (!value) { alert('Please enter a value'); return; }
+    userData[questions[currentQuestionIndex].field] = value;
+    nextQuestion();
+}
+
+function toggleOption(id, value, min, max) {
+    const el = event.target.closest('.option-btn, .multi-option');
+    const q = questions[currentQuestionIndex];
+    const option = q.options.find(o => o.value === value);
+    
+    if (selectedMulti.includes(value)) {
+        selectedMulti = selectedMulti.filter(v => v !== value);
+        el.classList.remove('selected');
+    } else {
+        if (selectedMulti.length < max) {
+            selectedMulti.push(value);
+            el.classList.add('selected');
+            
+            if (option.minIncome) userData.incomeValue = option.minIncome;
+            if (option.score) userData.creditScoreValue = option.score;
+            if (option.count !== undefined) userData.cardCount = option.count;
+            if (option.amount) userData.monthlySpendValue = option.amount;
+        } else if (max === 1) {
+            document.querySelectorAll('.option-btn.selected, .multi-option.selected').forEach(e => e.classList.remove('selected'));
+            selectedMulti = [value];
+            el.classList.add('selected');
+            
+            if (option.minIncome) userData.incomeValue = option.minIncome;
+            if (option.score) userData.creditScoreValue = option.score;
+            if (option.count !== undefined) userData.cardCount = option.count;
+            if (option.amount) userData.monthlySpendValue = option.amount;
+        }
+    }
+    
+    const btn = document.getElementById('continueBtn');
+    if (selectedMulti.length >= min && selectedMulti.length <= max) {
+        btn.disabled = false;
+        btn.innerHTML = `Continue <i class="fas fa-arrow-right"></i> (${selectedMulti.length} selected)`;
+    } else {
+        btn.disabled = true;
+        btn.innerHTML = `Continue <i class="fas fa-arrow-right"></i> (Select ${min}${max !== min ? '-' + max : ''})`;
+    }
+}
+
+function saveMultiple(id) {
+    userData[questions[currentQuestionIndex].field] = selectedMulti;
+    selectedMulti = [];
+    nextQuestion();
+}
+
+function nextQuestion() {
+    updateProgressTracker();
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
+    } else {
+        showResults();
+    }
+}
+
+function goBack() {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        showQuestion();
+    }
+}
+
+function calculateEligibility(card) {
+    let score = 0;
+    if (userData.incomeValue >= card.minIncome * 1.5) score += 40;
+    else if (userData.incomeValue >= card.minIncome * 1.2) score += 30;
+    else if (userData.incomeValue >= card.minIncome) score += 20;
+    else score += 5;
+    
+    if (userData.creditScoreValue >= card.minCreditScore) score += 30;
+    else if (userData.creditScoreValue >= card.minCreditScore - 50) score += 15;
+    else score += 5;
+    
+    if (userData.cardCount > 0) score += 15;
+    if (userData.cardCount >= 2) score += 15;
+    
+    if (score >= 70) return 'high';
+    if (score >= 50) return 'medium';
+    return 'low';
+}
+
+function calculateMatchScore(card) {
+    let score = 0;
+    const categories = userData.spendingCategories || [];
+    const categoryMatch = categories.filter(cat => card.categories.includes(cat)).length;
+    score += categoryMatch * 30;
+    
+    const goals = Array.isArray(userData.primaryGoal) ? userData.primaryGoal : [userData.primaryGoal];
+    if (card.goals && goals.some(g => card.goals.includes(g))) score += 25;
+    
+    const paymentPrefs = Array.isArray(userData.paymentPreference) ? userData.paymentPreference : [userData.paymentPreference];
+    if (card.paymentMethods && paymentPrefs.some(p => card.paymentMethods.includes(p))) score += 20;
+    
+    const eligibility = calculateEligibility(card);
+    if (eligibility === 'high') score += 20;
+    else if (eligibility === 'medium') score += 10;
+    
+    const affordability = (userData.monthlySpendValue * 12) / (card.annualFee || 1);
+    if (affordability > 100 || card.annualFee === 0) score += 15;
+    
+    return score;
+}
+
+function generateMatchExplanation(card) {
+    const categories = userData.spendingCategories || [];
+    const goals = Array.isArray(userData.primaryGoal) ? userData.primaryGoal : [userData.primaryGoal];
+    const paymentPrefs = Array.isArray(userData.paymentPreference) ? userData.paymentPreference : [userData.paymentPreference];
+    
+    let criteria = [];
+    
+    const matchedCategories = categories.filter(cat => card.categories.includes(cat));
+    if (matchedCategories.length > 0) {
+        const catLabels = matchedCategories.map(c => {
+            const q = questions.find(q => q.field === 'spendingCategories');
+            const opt = q.options.find(o => o.value === c);
+            return opt ? opt.label.toLowerCase() : c;
+        }).join(', ');
+        criteria.push(`You spend on ${catLabels}`);
+    }
+    
+    const matchedGoals = goals.filter(g => card.goals && card.goals.includes(g));
+    if (matchedGoals.length > 0) {
+        const goalLabels = matchedGoals.map(g => {
+            const q = questions.find(q => q.field === 'primaryGoal');
+            const opt = q.options.find(o => o.value === g);
+            return opt ? opt.label.toLowerCase() : g;
+        }).join(' and ');
+        criteria.push(`Your goal is ${goalLabels}`);
+    }
+    
+    const matchedPayments = paymentPrefs.filter(p => card.paymentMethods && card.paymentMethods.includes(p));
+    if (matchedPayments.length > 0) {
+        const payLabels = matchedPayments.map(p => {
+            const q = questions.find(q => q.field === 'paymentPreference');
+            const opt = q.options.find(o => o.value === p);
+            return opt ? opt.label.toLowerCase() : p;
+        }).join(' and ');
+        criteria.push(`You prefer ${payLabels}`);
+    }
+    
+    const eligibility = calculateEligibility(card);
+    if (eligibility === 'high') {
+        criteria.push(`Your income qualifies you strongly`);
+    } else if (eligibility === 'medium') {
+        criteria.push(`Your income meets requirements`);
+    }
+    
+    return criteria;
+}
+
+function generateOverview() {
+    const overview = document.getElementById('overviewGrid');
+    let html = '';
+    
+    questions.forEach(q => {
+        if (q.type === 'input') {
+            html += `
+                <div class="overview-item">
+                    <div class="overview-item-label">${q.displayName}</div>
+                    <div class="overview-item-value">${userData[q.field]}</div>
+                </div>
+            `;
+        } else if (q.type === 'multiple') {
+            const values = Array.isArray(userData[q.field]) ? userData[q.field] : [userData[q.field]];
+            
+            html += `
+                <div class="overview-item">
+                    <div class="overview-item-label">${q.displayName}</div>
+                    <div class="overview-item-tags">
+                        ${values.map(v => {
+                            const opt = q.options.find(o => o.value === v);
+                            return `<span class="overview-tag"><i class="${opt?.icon || 'fas fa-check'}"></i> ${opt?.label || v}</span>`;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+    });
+    
+    overview.innerHTML = html;
+}
+
+function showResults() {
+    document.getElementById('questionContainer').innerHTML = '';
+    document.getElementById('progressTracker').style.display = 'none';
+    document.getElementById('results').classList.remove('hidden');
+    document.getElementById('resultName').textContent = userData.name;
+    
+    const taglines = [
+        { icon: 'fas fa-party-horn', text: "We've analyzed your profile and found these matches!" },
+        { icon: 'fas fa-gem', text: "Here are the cards that best fit your needs!" },
+        { icon: 'fas fa-rocket', text: "Based on your preferences, these cards stand out!" },
+        { icon: 'fas fa-star', text: "We've matched you with these top options!" }
+    ];
+    const tagline = taglines[Math.floor(Math.random() * taglines.length)];
+    document.getElementById('gamifiedTagline').innerHTML = `<i class="${tagline.icon}"></i> ${tagline.text}`;
+    
+    generateOverview();
+    
+    const matchedCards = cardDatabase
+        .map(card => {
+            const eligibility = calculateEligibility(card);
+            const matchScore = calculateMatchScore(card);
+            return { ...card, eligibility, matchScore };
+        })
+        .sort((a, b) => b.matchScore - a.matchScore)
+        .slice(0, 3);
+    
+    const cardsHTML = matchedCards.map((card, i) => {
+        const cardClass = i === 0 ? 'card best' : 'card';
+        const badgeClass = i === 0 ? 'card-badge best' : 'card-badge rank';
+        const badgeIcon = i === 0 ? '<i class="fas fa-trophy"></i>' : `<i class="fas fa-medal"></i>`;
+        const badgeText = i === 0 ? 'BEST MATCH' : `#${i + 1} RECOMMENDED`;
+        
+        const eligibilityIcon = card.eligibility === 'high' ? '<i class="fas fa-check"></i>' : 
+                               card.eligibility === 'medium' ? '<i class="fas fa-minus"></i>' : 
+                               '<i class="fas fa-exclamation"></i>';
+        const eligibilityText = card.eligibility === 'high' ? 'HIGH' : 
+                               card.eligibility === 'medium' ? 'MEDIUM' : 'LOW';
+        const eligibilityBadge = `<div class="eligibility-badge ${card.eligibility}">${eligibilityIcon} ${eligibilityText} APPROVAL</div>`;
+        
+        const matchCriteria = generateMatchExplanation(card);
+        
+        const bankLogoUrl = bankLogos[card.bankCode] || '';
+        
+        const cardVisual = `
+            <div class="card-visual ${card.bankCode}">
+                ${eligibilityBadge}
+                <div class="bank-logo-section">
+                    <div class="bank-logo-container">
+                        <img src="${bankLogoUrl}" alt="${card.bank}" class="bank-logo-img" onerror="this.style.display='none'" />
+                    </div>
+                    <div class="powered-by">Powered by ${card.bank}</div>
+                </div>
+                <div class="card-mockup">
+                    <div class="card-chip"></div>
+                    <div class="card-number">•••• •••• •••• ${Math.floor(1000 + Math.random() * 9000)}</div>
+                    <div class="card-name">${userData.name.toUpperCase()}</div>
+                </div>
+            </div>
+        `;
+        
+        const matchExplanation = `
+            <div class="match-explanation">
+                <strong><i class="fas fa-bullseye"></i> This card was matched because:</strong>
+                <div class="match-criteria">
+                    ${matchCriteria.map(c => `<div class="match-criteria-item"><i class="fas fa-check-circle"></i>${c}</div>`).join('')}
+                </div>
+            </div>
+        `;
+        
+        const affiliateUrl = `${card.applyUrl}?ref=${card.affiliateTag}&partner=${card.partnerId}&user=${encodeURIComponent(userData.name)}`;
+        
+        return `
+            <div class="${cardClass}">
+                ${cardVisual}
+                <div class="card-content">
+                    <div class="${badgeClass}"><span>${badgeIcon} ${badgeText}</span></div>
+                    <h3>${card.name}</h3>
+                    <div class="bank">${card.bank}</div>
+                    ${matchExplanation}
+                    <div class="savings-box">
+                        <div class="savings-label">Estimated Annual Value</div>
+                        <div class="savings-amount">₹${card.estimatedValue.toLocaleString()}</div>
+                        <div class="savings-disclaimer">*Based on typical spending patterns. Actual value may vary.</div>
+                    </div>
+                    <div class="card-details">
+                        <div class="card-detail">
+                            <span class="card-detail-label">Annual Fee</span>
+                            <span class="card-detail-value ${card.annualFee === 0 ? 'free' : ''}">${card.annualFee === 0 ? 'Lifetime Free' : '₹' + card.annualFee.toLocaleString()}</span>
+                        </div>
+                        <div class="card-detail">
+                            <span class="card-detail-label">Min. Income Required</span>
+                            <span class="card-detail-value">₹${(card.minIncome / 100000).toFixed(1)}L</span>
+                        </div>
+                        <div class="card-detail">
+                            <span class="card-detail-label">Your Eligibility</span>
+                            <span class="card-detail-value ${card.eligibility}">${card.eligibility.toUpperCase()}</span>
+                        </div>
+                    </div>
+                    <div class="features">
+                        ${card.features.map(f => `<div class="feature"><i class="fas fa-circle-check feature-icon"></i><span>${f}</span></div>`).join('')}
+                    </div>
+                    <a href="${affiliateUrl}" class="apply-btn" target="_blank" rel="noopener">
+                        Apply Now
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    document.getElementById('cardsContainer').innerHTML = cardsHTML;
+    window.scrollTo(0, 0);
+}
+    </script>
+</body>
+</html>
