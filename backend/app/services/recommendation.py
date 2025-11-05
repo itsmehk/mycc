@@ -206,12 +206,29 @@ class RecommendationService:
     def get_recommendations(self, user_data: UserData) -> Dict[str, Any]:
         """
         Get personalized credit card recommendations with detailed spend analysis
+        Implements smart filtering based on user preferences
         """
         recommendations = []
         monthly_spend = user_data.monthlySpendValue or 0
         user_annual_spend = monthly_spend * 12
 
-        for card in self.cards:
+        # Smart filtering: If user wants no annual fee, only show free cards
+        goals = user_data.primaryGoal
+        if isinstance(goals, str):
+            goals = [goals]
+        wants_no_fee = goals and "lowfee" in goals
+
+        # Filter cards based on user preferences
+        eligible_cards = self.cards
+        if wants_no_fee:
+            # Only show cards with no annual fee
+            eligible_cards = [card for card in self.cards if card["annualFee"] == 0]
+
+            # If no free cards available (shouldn't happen), fallback to all cards
+            if not eligible_cards:
+                eligible_cards = self.cards
+
+        for card in eligible_cards:
             match_score = self.calculate_match_score(card, user_data)
             eligibility = self.calculate_eligibility(card, user_data)
             match_criteria = self.generate_match_criteria(card, user_data)
@@ -277,6 +294,10 @@ class RecommendationService:
 
         # Generate gamified tagline
         tagline = self.generate_gamified_tagline(user_data, top_recommendations)
+
+        # Add special message if showing only free cards
+        if wants_no_fee and len(eligible_cards) < len(self.cards):
+            tagline = f"💎 {len(top_recommendations)} lifetime free cards, zero annual fees!"
 
         return {
             "recommendations": top_recommendations,
