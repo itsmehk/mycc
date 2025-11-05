@@ -64,11 +64,25 @@ export interface CreditCard {
   applyUrl: string;
 }
 
+export interface RewardRange {
+  min: number;
+  max: number;
+}
+
+export interface SpendRange {
+  monthlyMin: number;
+  monthlyMax: number;
+  breakEven?: number;
+}
+
 export interface CardRecommendation extends CreditCard {
   matchScore: number;
   eligibility: 'high' | 'medium' | 'low';
   matchCriteria: string[];
   breakEvenMonthlySpend?: number;
+  estimatedValueRange?: RewardRange;
+  monthlySpendRange?: SpendRange;
+  personalizedEstimate?: number;
 }
 
 export interface RecommendationRequest {
