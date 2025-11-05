@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find your best credit card in India based on your lifestyle. Personalized, unbiased, and free.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cardmatch.pro">
+    <meta property="og:title" content="CardMatch Pro - Find Your Best Credit Card in India">
+    <meta property="og:description" content="Find your best credit card in India based on your lifestyle. Personalized, unbiased, and free.">
+    <meta property="og:image" content="/images/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://cardmatch.pro">
+    <meta property="twitter:title" content="CardMatch Pro - Find Your Best Credit Card in India">
+    <meta property="twitter:description" content="Find your best credit card in India based on your lifestyle. Personalized, unbiased, and free.">
+    <meta property="twitter:image" content="/images/og-image.png">
+
+    <title>CardMatch Pro - Find Your Best Credit Card in India</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <!-- Header / Navbar -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <span class="logo-text">CardMatch Pro</span>
+            </div>
+            <nav class="nav">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu hidden">
+        <a href="#home" class="mobile-nav-link">Home</a>
+        <a href="#about" class="mobile-nav-link">About</a>
+        <a href="#faq" class="mobile-nav-link">FAQ</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div class="progress-indicator hidden">
+        <div class="progress-container">
+            <div class="progress-text">
+                <span class="progress-label">Question</span>
+                <span class="progress-counter">
+                    <span id="currentStep">1</span> of <span id="totalSteps">8</span>
+                </span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-shield-check"></i>
+                    <span>Unbiased & Data-Driven</span>
+                </div>
+                <h1 class="hero-title">
+                    Find Your Perfect Credit Card in <span class="gradient-text">2 Minutes</span>
+                </h1>
+                <p class="hero-description">
+                    Get personalized card recommendations based on your spending habits and financial goals.
+                    No marketing gimmicks, just honest comparisons backed by real data.
+                </p>
+                <button class="btn-primary" id="startQuizBtn">
+                    <span>Find My Card</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <i class="fas fa-clock"></i>
+                        <span>2-minute quiz</span>
+                    </div>
+                    <div class="hero-feature">
+                        <i class="fas fa-lock"></i>
+                        <span>100% secure & private</span>
+                    </div>
+                    <div class="hero-feature">
+                        <i class="fas fa-heart"></i>
+                        <span>Always free</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card-stack">
+                    <div class="hero-card hero-card-1"></div>
+                    <div class="hero-card hero-card-2"></div>
+                    <div class="hero-card hero-card-3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted By Section -->
+    <section class="trusted-section">
+        <div class="trusted-container">
+            <p class="trusted-label">Trusted Partners</p>
+            <div class="bank-logos">
+                <img src="/images/banks/hdfc.svg" alt="HDFC Bank" class="bank-logo">
+                <img src="/images/banks/sbi.svg" alt="State Bank of India" class="bank-logo">
+                <img src="/images/banks/axis.svg" alt="Axis Bank" class="bank-logo">
+                <img src="/images/banks/icici.svg" alt="ICICI Bank" class="bank-logo">
+                <img src="/images/banks/amex.svg" alt="American Express" class="bank-logo">
+                <img src="/images/banks/hsbc.svg" alt="HSBC" class="bank-logo">
+                <img src="/images/banks/kotak.svg" alt="Kotak Mahindra Bank" class="bank-logo">
+                <img src="/images/banks/idfc.svg" alt="IDFC First Bank" class="bank-logo">
+                <img src="/images/banks/standardchartered.svg" alt="Standard Chartered" class="bank-logo">
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz" class="quiz-section hidden">
+        <div class="quiz-container">
+            <div class="quiz-card">
+                <div class="quiz-header">
+                    <button class="btn-back hidden" id="backBtn">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Back</span>
+                    </button>
+                </div>
+                <div id="quizContent"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="results-section hidden">
+        <div class="results-container">
+            <div class="results-header">
+                <div class="results-badge">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Analysis Complete</span>
+                </div>
+                <h2 class="results-title">
+                    Your Personalized Card Recommendations
+                </h2>
+                <p class="results-description">
+                    Based on your profile, here are the cards that offer you the best value
+                </p>
+            </div>
+            <div id="resultsContent" class="results-grid"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="about-container">
+            <h2 class="section-title">How CardMatch Pro Works</h2>
+            <p class="section-description">
+                Our algorithm analyzes your spending patterns and financial profile to recommend cards with the highest value for you
+            </p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Data-Driven Analysis</h3>
+                    <p class="feature-description">
+                        We calculate actual reward ranges based on your spending, not theoretical maximums
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-check"></i>
+                    </div>
+                    <h3 class="feature-title">Unbiased Recommendations</h3>
+                    <p class="feature-description">
+                        No partnerships or commissions. Our recommendations are based purely on value to you
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="feature-title">Transparent Math</h3>
+                    <p class="feature-description">
+                        See exactly how benefits are calculated with clear breakdowns and spend requirements
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3 class="feature-title">Privacy First</h3>
+                    <p class="feature-description">
+                        Your data stays private. We don't share or sell your information to anyone
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <div class="faq-container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How do you calculate expected annual benefits?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer hidden">
+                        <p>
+                            We calculate benefits based on your actual monthly spending across different categories
+                            (dining, travel, shopping, etc.) multiplied by each card's reward rate in those categories.
+                            We show a range because spending varies month to month. The calculation includes cashback,
+                            reward points (converted to rupee value), and milestone benefits, minus the annual fee.
+                        </p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What does "spend required" mean?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer hidden">
+                        <p>
+                            This is the monthly spending range needed to achieve the projected annual benefit.
+                            It helps you understand if a card's benefits align with your actual spending capacity.
+                            Premium cards often require higher spending to justify their annual fees.
+                        </p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Do you sell my data or get commissions?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer hidden">
+                        <p>
+                            No. CardMatch Pro is completely unbiased. We don't have partnerships with banks,
+                            don't earn referral commissions, and never sell user data. Our recommendations
+                            are based purely on mathematical analysis of card value for your profile.
+                        </p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Why do some cards show higher annual fees?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer hidden">
+                        <p>
+                            Premium segment cards typically have higher annual fees but offer proportionally
+                            higher rewards, airport lounge access, travel benefits, and lifestyle perks.
+                            We only recommend these if your spending patterns justify the fee through net benefits.
+                        </p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Will applying affect my credit score?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer hidden">
+                        <p>
+                            Most banks conduct a hard inquiry when you formally apply, which may temporarily
+                            lower your credit score by a few points. However, checking eligibility through
+                            bank pre-qualification tools (soft inquiry) doesn't impact your score. We recommend
+                            spacing applications 2-3 months apart.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="contact-container">
+            <h2 class="section-title">Get in Touch</h2>
+            <p class="section-description">
+                Have questions or feedback? We'd love to hear from you
+            </p>
+            <div class="contact-methods">
+                <a href="mailto:support@cardmatch.pro" class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <span>support@cardmatch.pro</span>
+                </a>
+                <a href="#" class="contact-card">
+                    <i class="fab fa-twitter"></i>
+                    <span>@CardMatchPro</span>
+                </a>
+                <a href="#" class="contact-card">
+                    <i class="fab fa-linkedin"></i>
+                    <span>/company/cardmatch-pro</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <span class="logo-text">CardMatch Pro</span>
+                    </div>
+                    <p class="footer-tagline">
+                        Unbiased credit card recommendations powered by data
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4 class="footer-heading">Product</h4>
+                        <a href="#home" class="footer-link">Home</a>
+                        <a href="#about" class="footer-link">How it Works</a>
+                        <a href="#faq" class="footer-link">FAQ</a>
+                    </div>
+                    <div class="footer-section">
+                        <h4 class="footer-heading">Company</h4>
+                        <a href="#about" class="footer-link">About</a>
+                        <a href="#contact" class="footer-link">Contact</a>
+                    </div>
+                    <div class="footer-section">
+                        <h4 class="footer-heading">Legal</h4>
+                        <a href="/privacy.html" class="footer-link">Privacy Policy</a>
+                        <a href="/terms.html" class="footer-link">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2025 CardMatch Pro. All rights reserved.
+                </p>
+                <div class="footer-compliance">
+                    <span class="compliance-badge">
+                        <i class="fas fa-shield-check"></i>
+                        Data Protected
+                    </span>
+                    <span class="compliance-badge">
+                        <i class="fas fa-lock"></i>
+                        SSL Secured
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sticky CTA (Mobile & Desktop) -->
+    <button class="sticky-cta hidden" id="stickyCta">
+        <span>Find My Card</span>
+        <i class="fas fa-arrow-right"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="/js/quiz.js"></script>
+    <script src="/js/results.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
