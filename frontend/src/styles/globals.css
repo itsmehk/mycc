@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+  }
+
+  * {
+    @apply border-gray-200;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-800 to-primary-500 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-primary-700 border-2 border-primary-500 font-bold py-3 px-6 rounded-xl transition-all duration-300 hover:bg-primary-50 hover:shadow-md;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-md border border-gray-200 p-6;
+  }
+
+  .input {
+    @apply w-full px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all focus:outline-none focus:border-primary-500 focus:bg-primary-50 focus:ring-4 focus:ring-primary-100;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-800 via-primary-500 to-primary-400 bg-clip-text text-transparent;
+  }
+
+  .option-btn {
+    @apply w-full p-6 bg-white border-2 border-gray-200 rounded-xl font-semibold transition-all cursor-pointer hover:border-primary-500 hover:bg-primary-50 hover:translate-x-1;
+  }
+
+  .option-btn.selected {
+    @apply border-primary-500 bg-gradient-to-br from-blue-50 to-indigo-50 text-primary-800 shadow-md;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold;
+  }
+
+  .progress-bar {
+    @apply w-full h-2.5 bg-gray-200 rounded-full overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full bg-gradient-to-r from-primary-800 to-primary-500 transition-all duration-500 rounded-full;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+/* Font Awesome Icons - Add this in your layout if using CDN */
+/* Or install @fortawesome/fontawesome-free package */
