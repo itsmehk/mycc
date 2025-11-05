@@ -11,24 +11,27 @@ interface CardRecommendationProps {
   rank: number;
 }
 
-// Card images mapping
+// Card images mapping - using local optimized SVG images
 const cardImages: Record<string, string> = {
-  hdfc_infinia: 'https://www.hdfcbank.com/content/dam/hdfcbank/personal/pay/cards/credit-cards/infinia/HDFC-Bank-Infinia-Credit-Card.jpg',
-  sbi_cashback: 'https://www.sbicard.com/sbi-card-en/assets/images/creditcards/cashback-sbi-card.png',
-  axis_magnus: 'https://www.axisbank.com/images/default-source/revamp_new/cards/credit-card/axis-bank-magnus.jpg',
-  amazon_icici: 'https://www.icicibank.com/content/dam/icicibank/managed-assets/images/creditcard/amazonpay-creditcard-beauty.jpg',
-  hdfc_swiggy: 'https://www.hdfcbank.com/content/dam/hdfcbank/personal/pay/cards/credit-cards/swiggy/HDFC-Bank-Swiggy-Credit-Card.jpg',
-  amex_platinum: 'https://icm.aexp-static.com/Internet/Acquisition/IN_en/AppContent/OneSite/category/cardarts/platinum-travel.png',
-  hsbc_live: 'https://www.hsbc.co.in/content/dam/hsbc/in/images/credit-cards/live-plus-card.jpg',
+  hdfc_infinia: '/images/cards/hdfc_infinia.svg',
+  sbi_cashback: '/images/cards/sbi_cashback.svg',
+  axis_magnus: '/images/cards/axis_magnus.svg',
+  amazon_icici: '/images/cards/amazon_icici.svg',
+  hdfc_swiggy: '/images/cards/hdfc_swiggy.svg',
+  amex_platinum: '/images/cards/amex_platinum.svg',
+  hsbc_live: '/images/cards/hsbc_live.svg',
 };
 
 const bankLogos: Record<string, string> = {
-  hdfc: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HDFC_Bank_Logo.svg/200px-HDFC_Bank_Logo.svg.png',
-  sbi: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/SBI-logo.svg/200px-SBI-logo.svg.png',
-  axis: 'https://upload.wikimedia.org/wikipedia/en/4/44/AXISBank_Logo.svg',
-  icici: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/ICICI_Bank_Logo.svg/200px-ICICI_Bank_Logo.svg.png',
-  amex: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/200px-American_Express_logo_%282018%29.svg.png',
-  hsbc: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/HSBC_logo_%282018%29.svg/200px-HSBC_logo_%282018%29.svg.png',
+  hdfc: '/images/banks/hdfc.svg',
+  sbi: '/images/banks/sbi.svg',
+  axis: '/images/banks/axis.svg',
+  icici: '/images/banks/icici.svg',
+  amex: '/images/banks/amex.svg',
+  hsbc: '/images/banks/hsbc.svg',
+  kotak: '/images/banks/kotak.svg',
+  idfc: '/images/banks/idfc.svg',
+  standardchartered: '/images/banks/standardchartered.svg',
 };
 
 export default function CardRecommendation({ card, rank }: CardRecommendationProps) {

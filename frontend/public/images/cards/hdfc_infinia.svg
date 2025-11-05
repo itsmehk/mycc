@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" width="400" height="250">
+  <defs>
+    <linearGradient id="hdfc-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#004C8F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0066B3;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="250" rx="12" fill="url(#hdfc-grad)"/>
+  <text x="30" y="50" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white">HDFC BANK</text>
+  <circle cx="350" cy="40" r="20" fill="#FFD700" opacity="0.3"/>
+  <circle cx="370" cy="40" r="20" fill="#FFD700" opacity="0.5"/>
+  <rect x="30" y="100" width="60" height="45" rx="4" fill="#E8C547"/>
+  <text x="30" y="180" font-family="Courier New, monospace" font-size="18" fill="white" letter-spacing="2">•••• •••• •••• 1234</text>
+  <text x="30" y="215" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white">INFINIA</text>
+  <text x="330" y="215" font-family="Arial, sans-serif" font-size="10" fill="white" opacity="0.7">PREMIUM</text>
+</svg>

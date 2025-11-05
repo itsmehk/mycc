@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" width="400" height="250">
+  <defs>
+    <linearGradient id="amex-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#006FCF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0050A0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="250" rx="12" fill="url(#amex-grad)"/>
+  <text x="30" y="50" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">AMERICAN EXPRESS</text>
+  <rect x="280" y="25" width="90" height="35" fill="white" opacity="0.15" rx="4"/>
+  <text x="285" y="48" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">AMEX</text>
+  <rect x="30" y="100" width="60" height="45" rx="4" fill="#E8C547"/>
+  <text x="30" y="180" font-family="Courier New, monospace" font-size="18" fill="white" letter-spacing="2">•••• •••••• •2345</text>
+  <text x="30" y="215" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white">Platinum Travel</text>
+</svg>
